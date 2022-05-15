@@ -41,3 +41,21 @@ describe('users', () => {
 		expect(response._body[0]).toHaveProperty('id');
 	});
 });
+describe('posts', () => {
+	it('retrieve all posts', async () => {
+		const response = await request(server)
+			.get('/api/posts')
+			.set('Content-Type', 'application/json')
+		expect(response.status).toBe(200);
+		expect(response._body[0]).toHaveProperty('post_title');
+	})
+});
+describe('comments', () => {
+	it('retrieve all posts', async () => {
+		const response = await request(server)
+			.get('/api/comments')
+			.set('Content-Type', 'application/json')
+		expect(response.status).toBe(200);
+		expect(response._body[0]).toHaveProperty('body');
+	})
+})

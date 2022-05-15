@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for api/models/usersModel.js</title>
+    <title>Code coverage report for api/models/commentsModel.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">api/models</a> usersModel.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">api/models</a> commentsModel.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.81% </span>
+                <span class="strong">48% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/54</span>
+                <span class='fraction'>24/50</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.44% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/9</span>
+                <span class='fraction'>1/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.81% </span>
+                <span class="strong">48% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/54</span>
+                <span class='fraction'>24/50</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -112,12 +112,7 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -131,22 +126,23 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -165,67 +161,56 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const db = require('../db/dbConfig');
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const db = require('../db/dbConfig');
 &nbsp;
 module.exports = {
 	find,
-	findById,
 	findOne,
+	findById,
 	add,
 	update,
 	remove,
-	addImage,
-	findUserImage,
-	removeImage
+	findPostComments,
+	findCommentById
 };
 &nbsp;
-async function find() {
-	return await db('users').select('id', 'username', 'email', 'role').orderBy('id');
+function find() {
+	return db('comments')
+		.select('id', 'body', 'user_id', 'post_id').orderBy('id');
 }
 &nbsp;
-async function findById(id) {
-	return await db('users').where({ id });
-}
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function findOne(filter) {</span></span>
+<span class="cstat-no" title="statement not covered" >	return db('comments').where(filter).orderBy('id');</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-function findOne(filter) {
-	return db('users').select('id', 'username', 'password', 'role').where(filter);
-}
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function findById(id) {</span></span>
+<span class="cstat-no" title="statement not covered" >	const [comments] = await db('comments').where({ id });</span>
+<span class="cstat-no" title="statement not covered" >	return comments;</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-async function add(userData) {
-	const [ids] = await db('users').insert(userData);
-	return await (findById(ids));
-}
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function add(filter) {</span></span>
+<span class="cstat-no" title="statement not covered" >	const [ids] = await db('comments').insert(filter);</span>
+<span class="cstat-no" title="statement not covered" >	return await (findById(ids));</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function update(id, changes) {</span></span>
-<span class="cstat-no" title="statement not covered" >	await db('users').where({ id }).update(changes);</span>
-<span class="cstat-no" title="statement not covered" >	return await findById(id);</span>
+<span class="cstat-no" title="statement not covered" >	const comment = await db('comments').where({id}).update(changes);</span>
+<span class="cstat-no" title="statement not covered" >	return comment;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function remove(id) {</span></span>
-<span class="cstat-no" title="statement not covered" >	return await db('users').where({ id }).del();</span>
+<span class="cstat-no" title="statement not covered" >	return await db('comments').where({id}).del();</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function addImage(changes) {</span></span>
-<span class="cstat-no" title="statement not covered" >	await db('users').where({id: changes.id}).update({image_path: changes.image_path});</span>
-<span class="cstat-no" title="statement not covered" >	return await findById({id: changes.id});</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function findPostComments(postId) {</span></span>
+<span class="cstat-no" title="statement not covered" >	return await db('comments').join('posts', 'posts.id', 'post_id').select('comments.*', 'title as post')</span>
+<span class="cstat-no" title="statement not covered" >		.where('post_id', postId);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function findUserImage(id) {</span></span>
-<span class="cstat-no" title="statement not covered" >	return await db('users')</span>
-<span class="cstat-no" title="statement not covered" >		.select('id', 'image_path')</span>
-<span class="cstat-no" title="statement not covered" >		.where({id});</span>
-<span class="cstat-no" title="statement not covered" >}</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function removeImage(id) {</span></span>
-<span class="cstat-no" title="statement not covered" >	return await db('users').where(id).update({ image_path: null });</span>
-<span class="cstat-no" title="statement not covered" >}</span>
-&nbsp;</pre></td></tr></table></pre>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function findCommentById(id) {</span></span>
+<span class="cstat-no" title="statement not covered" >	return await db('comments').join('posts', 'posts.id', 'post_id').select('comments.*', 'title as post')</span>
+<span class="cstat-no" title="statement not covered" >		.where('commments.id', id);</span>
+<span class="cstat-no" title="statement not covered" >}</span></pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

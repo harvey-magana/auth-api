@@ -1,15 +1,15 @@
 const db = require('../db/dbConfig');
 
 module.exports = {
-  find,
-  findOne,
-  findById,
-  add,
-  update,
-  remove,
-  findPostComments,
-  findCommentById
-}
+	find,
+	findOne,
+	findById,
+	add,
+	update,
+	remove,
+	findPostComments,
+	findCommentById
+};
 
 function find() {
 	return db('comments')
@@ -27,7 +27,7 @@ async function findById(id) {
 
 async function add(filter) {
 	const [ids] = await db('comments').insert(filter);
-	return newcomments = await (findById(ids));
+	return await (findById(ids));
 }
 
 async function update(id, changes) {
@@ -40,11 +40,11 @@ async function remove(id) {
 }
 
 async function findPostComments(postId) {
-    return await db('comments').join('posts', 'posts.id', 'post_id').select('comments.*', 'title as post')
-        .where('post_id', postId);
+	return await db('comments').join('posts', 'posts.id', 'post_id').select('comments.*', 'title as post')
+		.where('post_id', postId);
 }
 
 async function findCommentById(id) {
-    return await db('comments').join('posts', 'posts.id', 'post_id').select('comments.*', 'title as post')
-        .where('commments.id', id);
+	return await db('comments').join('posts', 'posts.id', 'post_id').select('comments.*', 'title as post')
+		.where('commments.id', id);
 }
