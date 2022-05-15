@@ -1,7 +1,6 @@
 const server = require('./api/server');
 const request = require('supertest');
 const db = require('./api/db/dbConfig');
-const { expectCt } = require('helmet');
 
 
 beforeAll(async () => {
@@ -33,3 +32,12 @@ describe('server', () => {
     expect(response.status).toBe(201);
   })
 });
+describe('users', () => {
+  it('retrieve users', async () => {
+    const response = await request(server)
+      .get('/api/users')
+      .set('Content-Type', 'application/json')
+    expect(response.status).toBe(200);
+    expect(response._body[0]).toHaveProperty('id');
+  })
+})

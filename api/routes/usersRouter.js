@@ -93,3 +93,5 @@ router.delete('/:id', async (req, res, next) => {
 /*************************/
 
 //router.patch('/:id/upload/', async (req, res, next) => {});
+
+module.exports = router;
