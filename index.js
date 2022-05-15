@@ -21,11 +21,11 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  *  create store object from KnexSessionStore
  * 	add store object to session in server.js 
  * 	create api/db 
- * 	install knex and sqlite3 
- * 	in api/db, run knex init 
- * 	configure knexfile.js 
- *  in api/db, create dbConfig.js 
- * 	scheme and add the database file 
+ * 	 
+ * 	
+ * 	
+ *  
+ * 	
  *  create api/routes 
  * create api/routes/authRouter.js 
  *  create api/models 
