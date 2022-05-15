@@ -18,5 +18,21 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * knex-cleaner 
  * sqlite3 
  * 
+ *  create store object from KnexSessionStore
+ * 	add store object to session in server.js 
+ * 	create api/db 
+ * 	install knex and sqlite3 
+ * 	in api/db, run knex init 
+ * 	configure knexfile.js 
+ *  in api/db, create dbConfig.js 
+ * 	scheme and add the database file 
+ *  create api/routes 
+ * create api/routes/authRouter.js 
+ *  create api/models 
+ *  create api/controllers
+ *  create api/controllers/authController.js 
+ *  transfer logic from authRouter to authController.js 
  * 
+ * add test script to packaage.json 
+ * create a simple test and run it 
  */
