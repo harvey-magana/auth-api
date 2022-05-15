@@ -4,7 +4,12 @@ module.exports = {
 	find,
 	findById,
 	findOne,
-	add
+	add,
+  update,
+  remove,
+  addImage,
+  findUserImage,
+  removeImage
 };
 
 async function find() {
@@ -22,4 +27,28 @@ function findOne(filter) {
 async function add(userData) {
 	const [ids] = await db('users').insert(userData);
 	return await (findById(ids));
+}
+
+async function update(id, changes) {
+  await db('users').where({ id }).update(changes);
+  return await findById(id);
+}
+
+async function remove(id) {
+  return await db('users').where({ id }).del();
+}
+
+async function addImage(changes) {
+  await db('users').where({id: changes.id}).update({image_path: changes.image_path});
+  return await findById({id: changes.id});
+}
+
+async function findUserImage(id) {
+return await db('users')
+  .select('id', 'image_path')
+  .where({id});
+}
+
+async function removeImage(id) {
+return await db('users').where(id).update({ image_path: null });
 }
