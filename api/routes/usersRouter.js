@@ -26,18 +26,18 @@ router.delete('/:id', usersController.deleteUser);
 /***** IMAGE UPLOAD *****/
 /************************/
 
-//router.put('/:id/upload', async (req, res, next) => {});
+router.put('/:id/upload', usersController.uploadImage);
 
 /******************************/
 /***** GET UPLOADED IMAGE *****/
 /******************************/
 
-//router.get('/:id/upload', async (req, res, next) => {});
+router.get('/:id/upload', usersController.getUserImage);
 
 /*************************/
 /***** DELETE IMAGE ******/
 /*************************/
 
-//router.patch('/:id/upload/', async (req, res, next) => {});
+router.patch('/:id/upload/', usersController.deleteImage);
 
 module.exports = router;

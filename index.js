@@ -8,7 +8,7 @@ server.listen(process.env.PORT, process.env.HOST, () => {
 
 /**
  * not yet added: 
- * bcryptjs 
+ * 
  * 
  * accesscontrol - add this last or toward the end 
  * express-fileupload 
@@ -16,9 +16,9 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * jwt-decode 
  * 
  * 
+ * middlewares not yet added: isLoggedIn.js, validate.js, verifyTokenjs
+ * util files not yet added: signTokens.js, roles.js 
  * 
- * 
- *  
  * 
  * 
  *  
@@ -31,13 +31,13 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  *  
  *  
  *  
- *  create api/controllers
- *  create api/controllers/authController.js 
- *  transfer logic from authRouter to authController.js 
  *  
- *  middlewares not added yet:
- *  signToken and verifyToken for jwt 
- *  validate for data validation 
+ *  
+ *  
+ *  
+ *  
+ *   
+ *   
  * 
- * 	utils not added 
+ * 	
  */

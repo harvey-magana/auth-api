@@ -5,6 +5,7 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const helmet = require('helmet');
+const fileUpload = require('express-fileupload');
 const KnexSessionStore = require('connect-session-knex')(session);
 
 const store = new KnexSessionStore({
@@ -21,6 +22,14 @@ const authRouter = require('../api/routes/authRouter');
 const usersRouter = require('../api/routes/usersRouter');
 const postsRouter = require('../api/routes/postsRoutes');
 const commentsRouter = require('../api/routes/commentsRouter');
+
+server.use(fileUpload({
+	createParentPath: true,
+	limits: {
+		fileSize: 270 * 270
+	},
+	abortOnLimit: true
+}));
 
 server.use(helmet());
 server.use(express.json());

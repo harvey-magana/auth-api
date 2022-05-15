@@ -13,7 +13,7 @@ afterAll(async () => {
 	await db.destroy();
 });
 
-describe('server', () => {
+describe('auth', () => {
 	it('loads successfully', async () => {
 		const response = await request(server)
 			.post('/api/auth/register')

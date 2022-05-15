@@ -7,7 +7,7 @@ exports.getAllPosts = async (req, res, next) => {
 	} catch (error) {
 		next(error.message);
 	}
-}
+};
 
 exports.getPostById = async (req, res, next) => {
 	try {
@@ -17,9 +17,9 @@ exports.getPostById = async (req, res, next) => {
 	} catch (error) {
 		next(error.message);
 	}
-}
+};
 
-exports.getUserPostById = async (req, res, next) => {}
+exports.getUserPostById = async (req, res, next) => {};
 
 exports.createPost = async (req, res, next) => {
 	try {
@@ -36,7 +36,7 @@ exports.createPost = async (req, res, next) => {
 	} catch (error) {
 		next(error.message);
 	}
-}
+};
 
 exports.editPost = async (req, res, next) => {
 	try {
@@ -59,7 +59,7 @@ exports.editPost = async (req, res, next) => {
 	} catch (error) {
 		next(error.message);
 	}
-}
+};
 
 exports.deletePost = async (req, res, next) => {
 	try {
@@ -80,5 +80,5 @@ exports.deletePost = async (req, res, next) => {
 	} catch (error) {
 		next(error.message);
 	}
-}
+};
 

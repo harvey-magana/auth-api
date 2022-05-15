@@ -1,5 +1,11 @@
 const Users = require('../models/usersModel');
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const jwt_decode = require('jwt-decode');
+const generateAccessToken = require('../utils/signTokens');
+const generateRefreshToken = require('../utils/signTokens');
 
+const tokenList = {};
 
 exports.register = async (req, res, next) => {
 	try {
@@ -13,10 +19,13 @@ exports.register = async (req, res, next) => {
 			});
 		}
   
+		const salt = await bcryptjs.genSalt(10);
+		const hashpassword = await bcryptjs.hash(password, salt);
+
 		const newUser = await Users.add({
 			username,
 			email, 
-			password,
+			password: hashpassword,
 			confirm_password,
 			role: role || 'reader'
 		});
@@ -25,7 +34,7 @@ exports.register = async (req, res, next) => {
 	} catch (error) {
 		next(error.message);
 	}
-}
+};
 
 exports.login = async (req, res, next) => {
 	try {
@@ -39,26 +48,45 @@ exports.login = async (req, res, next) => {
 			});
 		}
 
-		let sessionData = req.session;
-		let userObj = {};
-		if(!req.session.isLoggedIn) {
-			req.session.isLoggedIn = true;
-			req.session.user = user;
-			req.session.verified = null;
-			userObj = sessionData;
+		if (user && bcryptjs.compareSync(password, user.password)) {
+			let sessionData = req.session;
+			let userObj = {};
+			if(!req.session.isLoggedIn) {
+				req.session.isLoggedIn = true;
+				req.session.user = user;
+				req.session.verified = null;
+				userObj = sessionData;
+			}
+
+			const accessToken = generateAccessToken(user);
+			const refreshToken = generateRefreshToken(user);
+
+			const response = {
+				id: user.id,
+				loggedIn: req.session.isLoggedIn,
+				username: user.username,
+				role: user.role,
+				token: accessToken,
+				refreshToken: refreshToken
 		}
 
-		res.status(201).json(user);
+		tokenList[refreshToken] = response
+		res.status(201).json(response);
 
+		} else {
+			res.status(401).json({
+				message: 'Invalid password.'
+			});
+		}
 
 	} catch (error) {
 		next(error.message);
 	}
-}
+};
 
-exports.refresh = async (req, res, next) => {}
+exports.refresh = async (req, res, next) => {};
 
-exports.checkToken = async (req, res, next) => {}
+exports.checkToken = async (req, res, next) => {};
 
 exports.logout = async (req, res, next) => {
 	let sessionData = req.session;
@@ -81,4 +109,4 @@ exports.logout = async (req, res, next) => {
 	} catch (error) {
 		next(error.message);
 	}
-}
+};
