@@ -26,20 +26,21 @@ module.exports = {
     debug: false
   },
 
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
+  test: {
+    client: 'sqlite3',
+    connection: ":memory:",
     pool: {
-      min: 2,
-      max: 10
+      min: 1,
+      max: 1
     },
+    useNullAsDefault: true,
     migrations: {
-      tableName: 'knex_migrations'
-    }
+      directory: path.join(__dirname, "migrations")
+    },
+    seeds: {
+      directory: path.join(__dirname, "seeds")
+    },
+    debug: false
   },
 
   production: {

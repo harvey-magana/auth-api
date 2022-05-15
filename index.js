@@ -16,23 +16,28 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * jwt-decode 
  * 
  * 
- * 
- * 
- *  
- * 	 
- * 	
- * 	 
- * 	
- * 	
- *  
- * 	
- *  
- * 
+ * complete the usersModel logic 
+ * add the rest of the routes in the authRouter file 
+ * add and create usersRouter.js to router directory 
+ * add and create usersModel.js t models directory 
+ * add users routes to server.js 
+ * test 
+ * 	add and create postsRouter.js to router directory 
+ * 	add and create postsModel.js to model directory 
+ * 	add posts routes to server.js 
+ * 	test 
+ *  add and create commentsRouter.js to router directory 
+ * 	add and create commentsModel.js to model directory 
+ *  add comments routes to server.js 
+ *  test 
  *  
  *  create api/controllers
  *  create api/controllers/authController.js 
  *  transfer logic from authRouter to authController.js 
+ *  
+ *  middlewares not added yet:
+ *  signToken and verifyToken for jwt 
+ *  validate for data validation 
  * 
- * add test script to packaage.json 
- * create a simple test and run it 
+ * 	utils not added 
  */
