@@ -8,6 +8,14 @@ const cors = require('cors');
 const helmet = require('helmet');
 const KnexSessionStore = require('connect-session-knex')(session);
 
+const store = new KnexSessionStore({
+	knex: require('../api/db/dbConfig'),
+	tablename: 'sessions',
+	sidfieldname: 'sid',
+	createtable: true, 
+	clearInterval: 60 * 60 * 250
+})
+
 const server = express();
 
 server.use(helmet());
@@ -18,7 +26,8 @@ server.use(session({
 	secret: process.env.SESSION_SECRET,
 	name: 'appSession',
 	resave: false, 
-	saveUninitialized: false
+	saveUninitialized: false, 
+	store: store
 }));
 
 server.get('/', (req, res) => {

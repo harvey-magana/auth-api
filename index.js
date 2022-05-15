@@ -28,7 +28,7 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * 	
  *  
  * 
- *  create api/models 
+ *  
  *  create api/controllers
  *  create api/controllers/authController.js 
  *  transfer logic from authRouter to authController.js 

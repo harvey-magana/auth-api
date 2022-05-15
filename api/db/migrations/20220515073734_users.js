@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = function(knex) {
+exports.up = async function(knex) {
   await knex.schema.hasTable('users').then(function(exists) {
     if(!exists) {
       return knex.schema.createTable('users', (table) => {
