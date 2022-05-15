@@ -3,7 +3,6 @@ require('colors');
 
 const express = require('express');
 const session = require('express-session');
-const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const KnexSessionStore = require('connect-session-knex')(session);
@@ -14,9 +13,11 @@ const store = new KnexSessionStore({
 	sidfieldname: 'sid',
 	createtable: true, 
 	clearInterval: 60 * 60 * 250
-})
+});
 
 const server = express();
+
+const authRouter = require('../api/routes/authRouter');
 
 server.use(helmet());
 server.use(express.json());
@@ -30,8 +31,10 @@ server.use(session({
 	store: store
 }));
 
+server.use('/api/auth', authRouter);
+
 server.get('/', (req, res) => {
-  res.json({ message: 'The API is up and running... '});
+	res.json({ message: 'The API is up and running... '});
 });
 
 module.exports = server;

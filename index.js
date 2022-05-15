@@ -9,18 +9,18 @@ server.listen(process.env.PORT, process.env.HOST, () => {
 /**
  * not yet added: 
  * bcryptjs 
- * connect-session-knex 
+ * 
  * accesscontrol - add this last or toward the end 
  * express-fileupload 
  * express-validator jsonwebtoken 
  * jwt-decode 
- * knex 
- * knex-cleaner 
- * sqlite3 
  * 
- *  create store object from KnexSessionStore
- * 	add store object to session in server.js 
- * 	create api/db 
+ * 
+ * 
+ * 
+ *  
+ * 	 
+ * 	
  * 	 
  * 	
  * 	
