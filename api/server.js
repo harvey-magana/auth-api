@@ -18,7 +18,8 @@ const store = new KnexSessionStore({
 const server = express();
 
 const authRouter = require('../api/routes/authRouter');
-const usersRouter = require('./routes/usersRouter');
+const usersRouter = require('../api/routes/usersRouter');
+const postsRouter = require('../api/routes/postsRoutes')
 
 server.use(helmet());
 server.use(express.json());
@@ -34,6 +35,7 @@ server.use(session({
 
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
+server.use('/api/posts', postsRouter);
 
 server.get('/', (req, res) => {
 	res.json({ message: 'The API is up and running... '});
