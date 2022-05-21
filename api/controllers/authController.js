@@ -2,8 +2,7 @@ const Users = require('../models/usersModel');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwt_decode = require('jwt-decode');
-const generateAccessToken = require('../utils/signTokens');
-const generateRefreshToken = require('../utils/signTokens');
+const { generateAccessToken, generateRefreshToken } = require('../utils/signTokens');
 
 const tokenList = {};
 
@@ -41,14 +40,14 @@ exports.login = async (req, res, next) => {
 		const { username, password } = req.body;
 
 		const user = await Users.findOne({ username: username });
-
+		
 		if(!user) {
 			return res.status(404).json({
 				message: 'User not found.'
 			});
 		}
-
-		if (user && bcryptjs.compareSync(password, user.password)) {
+		
+		if (user && bcryptjs.compareSync(password, user[0].password)) {
 			let sessionData = req.session;
 			let userObj = {};
 			if(!req.session.isLoggedIn) {
@@ -58,19 +57,20 @@ exports.login = async (req, res, next) => {
 				userObj = sessionData;
 			}
 
-			const accessToken = generateAccessToken(user);
-			const refreshToken = generateRefreshToken(user);
+			const accessToken = generateAccessToken(user[0]);
+			const refreshToken = generateRefreshToken(user[0]);
 
 			const response = {
-				id: user.id,
+				id: user[0].id,
 				loggedIn: req.session.isLoggedIn,
-				username: user.username,
-				role: user.role,
+				username: user[0].username,
+				role: user[0].role,
 				token: accessToken,
 				refreshToken: refreshToken
 		}
 
 		tokenList[refreshToken] = response
+
 		res.status(201).json(response);
 
 		} else {

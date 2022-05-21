@@ -1,12 +1,13 @@
 const express = require('express');
 const postsController = require('../controllers/postsController');
+const verifyToken = require('../middleware/verifyToken');
 const router = express.Router();
 
 /******************************/
 /********* GET POSTS **********/
 /******************************/
 
-router.get('/', postsController.getAllPosts);
+router.get('/', verifyToken, postsController.getAllPosts);
 
 /*****************************/
 /********* GET POST *********/

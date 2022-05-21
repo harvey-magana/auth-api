@@ -9,35 +9,18 @@ server.listen(process.env.PORT, process.env.HOST, () => {
 /**
  * not yet added: 
  * 
- * 
+ * express-validator  
  * accesscontrol - add this last or toward the end 
- * express-fileupload 
- * express-validator jsonwebtoken 
- * jwt-decode 
+ * middlewares not yet added: isLoggedIn.js, validate.js, 
+ * util files not yet added: , roles.js
  * 
- * 
- * middlewares not yet added: isLoggedIn.js, validate.js, verifyTokenjs
- * util files not yet added: signTokens.js, roles.js 
  * 
  * 
  * 
  *  
- * 	 
- * 	
- * 	 
- * 	
- *  
- * 	
- *  
- *  
- *  
- *  
- *  
- *  
- *  
- *  
- *   
- *   
+ * 
+ * 
+ * 
  * 
  * 	
  */
