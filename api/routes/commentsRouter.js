@@ -1,5 +1,7 @@
 const express = require('express');
 const commentsController = require('../controllers/commentsController');
+const validate = require('../middleware/validate');
+
 const router = express.Router();
 
 /*********************************/
@@ -20,7 +22,7 @@ router.get('/:id', commentsController.getPostComments);
 /******** CREATE COMMENTS ********/
 /*********************************/
 
-router.post('/:id', commentsController.createComment);
+router.post('/:id', validate.commentValidation, commentsController.createComment);
 
 /*********************************/
 /******** UPDATE COMMENTS ********/

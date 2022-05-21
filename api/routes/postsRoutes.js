@@ -1,6 +1,8 @@
 const express = require('express');
 const postsController = require('../controllers/postsController');
 const verifyToken = require('../middleware/verifyToken');
+const validate = require('../middleware/validate')
+
 const router = express.Router();
 
 /******************************/
@@ -25,7 +27,7 @@ router.get('/:id', postsController.getPostById);
 /******** CREATE POST ********/
 /*****************************/
 
-router.post('/:id', postsController.createPost);
+router.post('/:id', validate.postValidation, postsController.createPost);
 
 /****************************/
 /******** UPDATE POST********/

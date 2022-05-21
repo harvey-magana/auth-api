@@ -1,19 +1,21 @@
 const express = require('express');
 const Users = require('../models/usersModel');
-const authController = require('../controllers/authController')
+const authController = require('../controllers/authController');
+const validate = require('../middleware/validate');
+
 const router = express.Router();
 
 /*****************************/
 /******** USER SIGNUP ********/
 /*****************************/
 
-router.post('/register', authController.register);
+router.post('/register', validate.registrationValidation, authController.register);
 
 /****************************/
 /******** USER LOGIN ********/
 /****************************/
 
-router.post('/login', authController.login);
+router.post('/login', validate.loginValidation, authController.login);
 
 /*******************************/
 /********* CHECK TOKEN *********/
