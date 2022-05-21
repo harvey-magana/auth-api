@@ -3,21 +3,24 @@ const ac = new AccessControl();
 
 exports.roles = (function() {
   ac.grant('reader')
-    .createAny('post').readAny('post').updateAny('post').deleteAny('post')
-    .createAny('comment').readAny('comment').updateAny('comment').deleteAny('comment')
-    .readAny('profile').updateAny('profile').deleteAny('profile')
+    .createAny('post').readAny('post').updateOwn('post').deleteOwn('post')
+    .createAny('comment').readAny('comment').updateOwn('comment').deleteOwn('comment')
+    .readOwn('profile').updateOwn('profile').deleteOwn('profile')
     .readAny('avatar').updateAny('avatar').deleteAny('avatar')
 
   ac.grant('moderator')
-    .createAny('post').readAny('post').updateAny('post').deleteAny('post')
-    .createAny('comment').readAny('comment').updateAny('comment').deleteAny('comment')
-    .readAny('profile').updateAny('profile').deleteAny('profile')
-    .readAny('avatar').updateAny('avatar').deleteAny('avatar')
+    .extend('reader')
+    .createAny('post').readAny('post')
+    .createAny('comment').readAny('comment')
+    .readAny('profile')
+    .readAny('avatar')
   
   ac.grant('editor')
-    .createAny('post').readAny('post').updateAny('post').deleteAny('post')
-    .createAny('comment').readAny('comment').updateAny('comment').deleteAny('comment')
-    .readAny('profile').updateAny('profile').deleteAny('profile')
-    .readAny('avatar').updateAny('avatar').deleteAny('avatar')
+    .extend('reader')
+    .extend('moderator')
+    .updateAny('post').deleteAny('post')
+    .updateAny('comment').deleteAny('comment')
+    .updateAny('profile').deleteAny('profile')
+    .updateAny('avatar').deleteAny('avatar')
   return ac;
 })();

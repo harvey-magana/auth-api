@@ -29,7 +29,7 @@ exports.register = async (req, res, next) => {
 			role: role || 'reader'
 		});
   
-		res.status(201).json(newUser);
+		res.status(201).json({ data: newUser });
 	} catch (error) {
 		next(error.message);
 	}
@@ -71,7 +71,7 @@ exports.login = async (req, res, next) => {
 
 		tokenList[refreshToken] = response
 
-		res.status(201).json(response);
+		res.status(201).json({ data: response });
 
 		} else {
 			res.status(401).json({

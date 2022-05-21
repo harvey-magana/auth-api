@@ -4,7 +4,7 @@ const nodePath = require('path');
 exports.getAllUsers = async (req, res, next) => {
 	try {
 		const users = await Users.find();
-		res.status(200).json(users);
+		res.status(200).json({data: users});
 	} catch (error) {
 		next(error.message);
 	}
@@ -14,7 +14,7 @@ exports.getOneUser = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const [user] = await Users.findById(id);
-		res.status(200).json(user);
+		res.status(200).json({data: user});
 	} catch (error) {
 		next(error.message);
 	}
@@ -28,9 +28,8 @@ exports.updateUser = async (req, res, next) => {
 
 		if(user) {
 			res.status(201).json({
-				message: `${user.username} has been updated`,
-				id: id,
-				user: userBody
+				data: user,
+				message: 'User has been updated'
 			});
 		} else {
 			res.status(500).json({
@@ -50,7 +49,7 @@ exports.deleteUser = async (req, res, next) => {
 		if (user) {
 			res.status(200).json({
 				message: 'The user has been deleted...',
-				userId: userId
+				data: null
 			});
 		} else {
 			res.status(500).json({

@@ -1,5 +1,6 @@
 const express = require('express');
 const usersController = require('../controllers/usersController');
+const accessController = require('../controllers/accessController');
 const router = express.Router();
 
 /************************/
@@ -8,36 +9,36 @@ const router = express.Router();
 
 router.get('/', usersController.getAllUsers);
 
-router.get('/:id', usersController.getOneUser);
+router.get('/:id', accessController.allowIfLoggedin, accessController.grantAccess('readAny', 'profile'), usersController.getOneUser);
 
 /************************/
 /******** UPDATE ********/
 /************************/
 
-router.put('/:id', usersController.updateUser);
+router.put('/:id', accessController.allowIfLoggedin, accessController.grantAccess('updateAny', 'profile'), usersController.updateUser);
 
 /************************/
 /******** DELETE ********/
 /************************/
 
-router.delete('/:id', usersController.deleteUser);
+router.delete('/:id', accessController.allowIfLoggedin, accessController.grantAccess('deleteAny', 'profile'), usersController.deleteUser);
 
 /************************/
 /***** IMAGE UPLOAD *****/
 /************************/
 
-router.put('/:id/upload', usersController.uploadImage);
+router.put('/:id/upload', accessController.allowIfLoggedin, accessController.grantAccess('updateAny', 'avatar'), usersController.uploadImage);
 
 /******************************/
 /***** GET UPLOADED IMAGE *****/
 /******************************/
 
-router.get('/:id/upload', usersController.getUserImage);
+router.get('/:id/upload', accessController.allowIfLoggedin, accessController.grantAccess('readAny', 'avatar'), usersController.getUserImage);
 
 /*************************/
 /***** DELETE IMAGE ******/
 /*************************/
 
-router.patch('/:id/upload/', usersController.deleteImage);
+router.patch('/:id/upload/', accessController.allowIfLoggedin, accessController.grantAccess('deleteAny', 'avatar'), usersController.deleteImage);
 
 module.exports = router;
