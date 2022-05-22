@@ -7,10 +7,8 @@ exports.grantAccess = function(action, resource) {
       const data = req.user;
       
       let modAction = action;
-      console.log('accessController line 10', data.id)
-      console.log('accessController line 11', req.params.id)
-      console.log('accessController line 12', req.body.user_id)
-      // the statement below works as long as the user_id is included in the request body, 
+      // the statement below works with requests that use a param, such as in POST, PUT and DELETE REQUESTS 
+      // as long as the user_id is included in the request body, 
       // without it, the permissions would be overwritten by the wrong user
       if(data.id === parseInt(req.params.id) || data.id === parseInt(req.body.user_id)) {
         modAction = action.replace('Any', 'Own');
