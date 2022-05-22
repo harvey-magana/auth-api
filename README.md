@@ -51,18 +51,7 @@ If you install it locally, you will need to use an API testing software so you c
 
 ##### Request body
 | Method  | Endpoint | Required Fields |
-<<<<<<< HEAD
-<<<<<<< HEAD
 | ------------- | ------------- | ------------- |
-=======
-| ------------- | ------------- | ------------- | ------------- |
->>>>>>> b28a54a (Removed .env from last commit and updated project after troubleshooting jest/supertest testing.)
-=======
-| ------------- | ------------- | ------------- | ------------- |
-=======
-| ------------- | ------------- | ------------- |
->>>>>>> 5615c3a8978d399034ff0da340ff45f7f17a9dc9
->>>>>>> d39c0d6336956c8706004805bb5885e19637bfee
 | GET  | /api/users  | none |
 | GET  | /api/users/:id  | none |
 | PUT  | /api/users/:id  | username (str), email (str), password (str) all optional |
