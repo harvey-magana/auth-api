@@ -9,7 +9,10 @@ exports.grantAccess = function(action, resource) {
       let modAction = action;
       console.log('accessController line 10', data.id)
       console.log('accessController line 11', req.params.id)
-      if(data.id === parseInt(req.params.id)) {
+      console.log('accessController line 12', req.body.user_id)
+      // the statement below works as long as the user_id is included in the request body, 
+      // without it, the permissions would be overwritten by the wrong user
+      if(data.id === parseInt(req.params.id) || data.id === parseInt(req.body.user_id)) {
         modAction = action.replace('Any', 'Own');
       }
 
@@ -33,7 +36,7 @@ exports.allowIfLoggedin = async (req, res, next) => {
     
     if(!user) 
       return res.status(401).json({
-        error: 'Yu need to be logged in to access this route.'
+        error: 'You need to be logged in to access this route.'
       });
       req.user = user;
       
