@@ -70,7 +70,7 @@ exports.login = async (req, res, next) => {
 			};
 
 			tokenList[refreshToken] = response;
-			console.log('authController line 70', tokenList)
+			
 			res.status(201).json({ data: response });
 
 		} else {
@@ -87,8 +87,7 @@ exports.login = async (req, res, next) => {
 exports.refresh = async (req, res, next) => {
 	try {
 		const postData = req.body;
-		console.log('authController line 90', postData)
-		console.log('authController line 90', tokenList)
+
 		if ((postData.refreshToken) && (postData.refreshToken in tokenList)) {
 			const user = {
 				username: postData.username,

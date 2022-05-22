@@ -2,7 +2,6 @@ const Posts = require('../models/postsModel');
 
 exports.getAllPosts = async (req, res, next) => {
 	try {
-		console.log('postsController line 5', req.session)
 		const post = await Posts.find();
 		res.status(200).json(post);
 	} catch (error) {
@@ -20,7 +19,15 @@ exports.getPostById = async (req, res, next) => {
 	}
 };
 
-exports.getUserPostById = async (req, res, next) => {};
+exports.getUserPostById = async (req, res, next) => {
+	try {
+		const { id } = req.params; // userId
+		const post = await Posts.findPostByUserId(id);
+		res.status(200).json(post);
+	} catch (error) {
+		next(error.message);
+	}
+};
 
 exports.createPost = async (req, res, next) => {
 	try {

@@ -13,7 +13,7 @@ exports.registrationValidation = async (req, res, next) => {
 		return true;
 	}).run(req);
 
-	function errorFormatter({ msg, param }) {
+	const errorFormatter = ({ msg, param }) => {
 		return param + ':' + JSON.stringify(msg);
 	}
 
@@ -32,7 +32,7 @@ exports.loginValidation = async (req, res, next) => {
 		.isLength({ min: 3 }).trim().escape().run(req);
 	await check('password').isLength({ min: 8 }).withMessage('must be at least 8 chars long').matches(/\d/).withMessage('must contain a number').run(req);
 
-	function errorFormatter({ msg, param }) {
+	const errorFormatter = ({ msg, param }) => {
 		return param + ':' + JSON.stringify(msg);
 	}
 
@@ -53,7 +53,7 @@ exports.postValidation = async (req, res, next) => {
 		.isLength({ max: 50 }).trim().escape().run(req);
 	await check('post_body').isLength({ max: 255 }).withMessage('Post body must ot be more than 255 char in length.').run(req);
 
-	function errorFormatter({ msg, param }) {
+	const errorFormatter = ({ msg, param }) => {
 		return param + ':' + JSON.stringify(msg);
 	}
 
@@ -70,7 +70,7 @@ exports.postValidation = async (req, res, next) => {
 exports.commentValidation = async (req, res, next) => {
 	await check('body').isLength({ max: 255 }).withMessage('Comment body must not be more than 255 char in length.').run(req);
 
-	function errorFormatter({ msg, param }) {
+	const errorFormatter = ({ msg, param }) => {
 		return param + ':' + JSON.stringify(msg);
 	}
 

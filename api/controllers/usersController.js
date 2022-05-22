@@ -12,7 +12,6 @@ exports.getAllUsers = async (req, res, next) => {
 
 exports.getOneUser = async (req, res, next) => {
 	try {
-		console.log('usersController line 15', req.session)
 		const { id } = req.params;
 		const [user] = await Users.findById(id);
 		res.status(200).json({data: user});

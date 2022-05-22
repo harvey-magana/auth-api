@@ -3,7 +3,6 @@ const { roles } = require('../utils/roles');
 exports.grantAccess = function(action, resource) {
 	return async (req, res, next) => {
 		try {
-      console.log('accessController line 6', req.session)
 			const data = req.user;
       
 			let modAction = action;
@@ -37,7 +36,7 @@ exports.allowIfLoggedin = async (req, res, next) => {
 				error: 'You need to be logged in to access this route.'
 			});
 		req.user = user;
-      console.log('accessController line 40', req.session)
+      
 		next();
 	} catch (error) {
 		next(error.message);
