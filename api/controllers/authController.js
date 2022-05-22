@@ -1,4 +1,7 @@
+require('dotenv').config();
 const Users = require('../models/usersModel');
+const jwt = require('jsonwebtoken');
+const jwt_decode = require('jwt-decode');
 const bcryptjs = require('bcryptjs');
 const { generateAccessToken, generateRefreshToken } = require('../utils/signTokens');
 
@@ -67,7 +70,7 @@ exports.login = async (req, res, next) => {
 			};
 
 			tokenList[refreshToken] = response;
-
+			console.log('authController line 70', tokenList)
 			res.status(201).json({ data: response });
 
 		} else {
@@ -81,9 +84,54 @@ exports.login = async (req, res, next) => {
 	}
 };
 
-exports.refresh = async (req, res, next) => {};
+exports.refresh = async (req, res, next) => {
+	try {
+		const postData = req.body;
+		console.log('authController line 90', postData)
+		console.log('authController line 90', tokenList)
+		if ((postData.refreshToken) && (postData.refreshToken in tokenList)) {
+			const user = {
+				username: postData.username,
+				email: postData.email
+			}
 
-exports.checkToken = async (req, res, next) => {};
+			const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5h' });
+			const response = {
+				token: token
+			}
+
+			tokenList[postData.refreshToken].token = token 
+			res.status(201).json(response);
+		}
+
+		next();
+	} catch (error) {
+		res.status(500).json(error.message);
+	}
+};
+
+exports.checkToken = async (req, res, next) => {
+	const token = req.headers['authorization'].split(' ')[1];
+	try {
+		if (token) {
+			const decoded = await jwt_decode(token);
+
+			if(decoded.exp < Date.now) {
+				res.status(200).json({
+					token_expiration: decoded.exp, 
+					token_issue: decoded.iat
+				});
+				next();
+			} else {
+				res.status(200).json({
+					message: 'Token still valid'
+				});
+			}
+		}
+	} catch (error) {
+		return next();
+	}
+};
 
 exports.logout = async (req, res, next) => {
 	let sessionData = req.session;

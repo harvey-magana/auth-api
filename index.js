@@ -10,10 +10,10 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * not yet added: 
  * 
  *  
- * accesscontrol - add this last or toward the end 
- * middlewares not yet added: isLoggedIn.js,
- * util files not yet added: , roles.js
+ *  
  * 
+ * implement check_token and refresh_token
+ * router.get('/:id', postsController.getUserPostById);
  * 
  * 
  * 

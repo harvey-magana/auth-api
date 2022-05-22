@@ -2,6 +2,7 @@ const Comments = require('../models/commentsModel');
 
 exports.getAllComments = async (req, res, next) => {
 	try {
+		console.log('commentsController line 5', req.session)
 		const comments = await Comments.find();
 		res.status(200).json(comments);
 	} catch (error) {

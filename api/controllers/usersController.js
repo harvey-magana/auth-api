@@ -4,7 +4,7 @@ const nodePath = require('path');
 exports.getAllUsers = async (req, res, next) => {
 	try {
 		const users = await Users.find();
-		res.status(200).json({data: users});
+		res.status(200).json({data: users[0]});
 	} catch (error) {
 		next(error.message);
 	}
@@ -12,6 +12,7 @@ exports.getAllUsers = async (req, res, next) => {
 
 exports.getOneUser = async (req, res, next) => {
 	try {
+		console.log('usersController line 15', req.session)
 		const { id } = req.params;
 		const [user] = await Users.findById(id);
 		res.status(200).json({data: user});

@@ -43,12 +43,18 @@ describe('auth', () => {
 describe('users', () => {
 	it('retrieve users', async () => {
 		const jwt = generateAccessToken(userPayload);
+		const user = await request(server)
+			.post('/api/auth/login')
+			.set('Accept', 'application/json')
+			.set('Content-Type', 'application/json')
+			.set('Authorization', `Bearer ${jwt}`)
+			.send({username: userPayload.username, password: userPayload.password});
 		const response = await request(server)
 			.get('/api/users')
 			.set('Content-Type', 'application/json')
-			.set('Authorization', `Bearer ${jwt}`);
+			.set('Authorization', `Bearer ${user._body.data.token}`);
 		expect(response.status).toBe(200);
-		expect(response._body[0]).toHaveProperty('id');
+		expect(response._body.data).toHaveProperty('id');
 	});
 	it('edit a user', async () => {
 		const jwt = generateAccessToken(userPayload);
@@ -59,30 +65,39 @@ describe('users', () => {
 			.send({email: 'herman@yahoo.zz'});
 		expect(response.status).toBe(200);
 	});
-	it('remove a user', async () => {});
 });
 describe('posts', () => {
 	it('retrieve all posts', async () => {
 		const jwt = generateAccessToken(userPayload);
+		const user = await request(server)
+			.post('/api/auth/login')
+			.set('Accept', 'application/json')
+			.set('Content-Type', 'application/json')
+			.set('Authorization', `Bearer ${jwt}`)
+			.send({username: userPayload.username, password: userPayload.password});
 		const response = await request(server)
 			.get('/api/posts')
 			.set('Content-Type', 'application/json')
 			.set('Accept', 'application/json')
-			.set('Authorization', `Bearer ${jwt}`)
-			.send({username: userPayload.username, password: userPayload.password});
+			.set('Authorization', `Bearer ${user._body.data.token}`);
 		expect(response.status).toBe(200);
 		expect(response._body[0]).toHaveProperty('post_title');
 	});
 });
 describe('comments', () => {
-	it('retrieve all posts', async () => {
+	it('retrieve all comments', async () => {
 		const jwt = generateAccessToken(userPayload);
+		const user = await request(server)
+			.post('/api/auth/login')
+			.set('Accept', 'application/json')
+			.set('Content-Type', 'application/json')
+			.set('Authorization', `Bearer ${jwt}`)
+			.send({username: userPayload.username, password: userPayload.password});
 		const response = await request(server)
 			.get('/api/comments')
 			.set('Content-Type', 'application/json')
 			.set('Accept', 'application/json')
-			.set('Authorization', `Bearer ${jwt}`)
-			.send({username: userPayload.username, password: userPayload.password});
+			.set('Authorization', `Bearer ${user._body.data.token}`);
 		expect(response.status).toBe(200);
 		expect(response._body[0]).toHaveProperty('body');
 	});

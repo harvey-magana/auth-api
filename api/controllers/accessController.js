@@ -3,7 +3,7 @@ const { roles } = require('../utils/roles');
 exports.grantAccess = function(action, resource) {
 	return async (req, res, next) => {
 		try {
-      
+      console.log('accessController line 6', req.session)
 			const data = req.user;
       
 			let modAction = action;
@@ -13,7 +13,7 @@ exports.grantAccess = function(action, resource) {
 			if(data.id === parseInt(req.params.id) || data.id === parseInt(req.body.user_id)) {
 				modAction = action.replace('Any', 'Own');
 			}
-
+	
 			const permission = roles.can(data.role)[modAction](resource);
 
 			if(!permission.granted) {
@@ -31,13 +31,13 @@ exports.grantAccess = function(action, resource) {
 exports.allowIfLoggedin = async (req, res, next) => {
 	try {
 		const user = await req.session.verified;
-    
+
 		if(!user) 
 			return res.status(401).json({
 				error: 'You need to be logged in to access this route.'
 			});
 		req.user = user;
-      
+      console.log('accessController line 40', req.session)
 		next();
 	} catch (error) {
 		next(error.message);

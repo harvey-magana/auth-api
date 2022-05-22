@@ -2,6 +2,7 @@ const Posts = require('../models/postsModel');
 
 exports.getAllPosts = async (req, res, next) => {
 	try {
+		console.log('postsController line 5', req.session)
 		const post = await Posts.find();
 		res.status(200).json(post);
 	} catch (error) {
