@@ -2,7 +2,7 @@ const express = require('express');
 const postsController = require('../controllers/postsController');
 const accessController = require('../controllers/accessController');
 const verifyToken = require('../middleware/verifyToken');
-const validate = require('../middleware/validate')
+const validate = require('../middleware/validate');
 
 const router = express.Router();
 

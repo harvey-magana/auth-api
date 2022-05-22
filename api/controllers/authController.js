@@ -1,7 +1,5 @@
 const Users = require('../models/usersModel');
 const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const jwt_decode = require('jwt-decode');
 const { generateAccessToken, generateRefreshToken } = require('../utils/signTokens');
 
 const tokenList = {};
@@ -49,29 +47,28 @@ exports.login = async (req, res, next) => {
 		
 		if (user && bcryptjs.compareSync(password, user[0].password)) {
 			let sessionData = req.session;
-			let userObj = {};
 			if(!req.session.isLoggedIn) {
 				req.session.isLoggedIn = true;
 				req.session.user = user;
 				req.session.verified = null;
-				userObj = sessionData;
 			}
+			req.session = sessionData;
 
 			const accessToken = generateAccessToken(user[0]);
 			const refreshToken = generateRefreshToken(user[0]);
 
 			const response = {
 				id: user[0].id,
-				loggedIn: req.session.isLoggedIn,
+				loggedIn: sessionData.isLoggedIn,
 				username: user[0].username,
 				role: user[0].role,
 				token: accessToken,
 				refreshToken: refreshToken
-		}
+			};
 
-		tokenList[refreshToken] = response
+			tokenList[refreshToken] = response;
 
-		res.status(201).json({ data: response });
+			res.status(201).json({ data: response });
 
 		} else {
 			res.status(401).json({
