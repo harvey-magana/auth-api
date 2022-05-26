@@ -58,12 +58,18 @@ describe('users', () => {
 	});
 	it('edit a user', async () => {
 		const jwt = generateAccessToken(userPayload);
-		const response = await request(server)
-			.get('/api/users')
+		const user = await request(server)
+			.post('/api/auth/login')
+			.set('Accept', 'application/json')
 			.set('Content-Type', 'application/json')
 			.set('Authorization', `Bearer ${jwt}`)
+			.send({username: userPayload.username, password: userPayload.password});
+		const response = await request(server)
+			.put(`/api/users/${user._body.data.id}`)
+			.set('Content-Type', 'application/json')
+			.set('Authorization', `Bearer ${user._body.data.token}`)
 			.send({email: 'herman@yahoo.zz'});
-		expect(response.status).toBe(200);
+		expect(response.status).toBe(201);
 	});
 });
 describe('posts', () => {
