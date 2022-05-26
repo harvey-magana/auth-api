@@ -18,9 +18,9 @@ router.get('/', verifyToken, accessController.allowIfLoggedin, accessController.
 
 router.get('/:id', verifyToken, accessController.allowIfLoggedin, accessController.grantAccess('readAny', 'post'), postsController.getPostById);
 
-/*****************************/
-/********* GET POST *********/
-/*****************************/
+/**********************************/
+/********** GET USER POST *********/
+/**********************************/
 
 //router.get('/:id', postsController.getUserPostById);
 

@@ -87,7 +87,7 @@ exports.login = async (req, res, next) => {
 exports.refresh = async (req, res, next) => {
 	try {
 		const postData = req.body;
-
+		
 		if ((postData.refreshToken) && (postData.refreshToken in tokenList)) {
 			const user = {
 				username: postData.username,

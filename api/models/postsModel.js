@@ -6,8 +6,7 @@ module.exports = {
 	findById,
 	add,
 	update,
-	remove,
-	findPostByUserId
+	remove
 };
 
 function find() {
@@ -38,9 +37,13 @@ async function remove(id) {
 	return await db('posts').where({ id }).del();
 }
 
+/*
 async function findPostByUserId(id) {
-	const [ids] = await db('posts').join('users', 'users.id', 'posts.user_id')
-		.select('users.id', 'posts.post_title', 'posts.post_body').limit(1)
-		.where('posts.user_id', id.id );
-	return await (findById(ids));
+	console.log('postsModel line 42', id)
+  const [ids] = await db('posts as p')
+    .join('users as u', 'u.id', 'p.user_id')
+    .select('u.id', 'u.image_path', 'u.role', 'p.id', 'p.post_title', 'p.post_body').limit(1)
+    .where( 'p.user_id', id );
+  return await (findById(ids));
 }
+*/
