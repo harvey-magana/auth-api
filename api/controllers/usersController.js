@@ -4,7 +4,7 @@ const nodePath = require('path');
 exports.getAllUsers = async (req, res, next) => {
 	try {
 		const users = await Users.find();
-		res.status(200).json({data: users[0]});
+		res.status(200).json({data: users});
 	} catch (error) {
 		next(error.message);
 	}
@@ -101,14 +101,14 @@ exports.uploadImage = async (req, res, next) => {
 exports.getUserImage = async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		const user = await Users.findById(id);
+		const [user] = await Users.findById(id);
 
 		if(!user) {
 			return res.status(400).json({
 				message: 'Sorry, user image not found...'
 			});
 		}
-
+		
 		res.status(200).json({
 			id: user.id,
 			username: user.username,
