@@ -20,8 +20,6 @@ exports.getOneUser = async (req, res, next) => {
 	}
 };
 
-//getUserPostById removed 
-
 exports.updateUser = async (req, res, next) => {
 	try {
 		const { id } = req.params;
