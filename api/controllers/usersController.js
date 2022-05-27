@@ -20,15 +20,7 @@ exports.getOneUser = async (req, res, next) => {
 	}
 };
 
-exports.getUserPostById = async (req, res, next) => {
-	try {
-		const { id } = req.params; // userId
-		const user = await Users.findPostByUserId(id);
-		res.status(200).json(user);
-	} catch (error) {
-		next(error.message);
-	}
-};
+//getUserPostById removed 
 
 exports.updateUser = async (req, res, next) => {
 	try {
