@@ -15,7 +15,7 @@ exports.registrationValidation = async (req, res, next) => {
 
 	const errorFormatter = ({ msg, param }) => {
 		return param + ':' + JSON.stringify(msg);
-	}
+	};
 
 	const result = validationResult(req).formatWith(errorFormatter);
 
@@ -34,7 +34,7 @@ exports.loginValidation = async (req, res, next) => {
 
 	const errorFormatter = ({ msg, param }) => {
 		return param + ':' + JSON.stringify(msg);
-	}
+	};
 
 	const result = validationResult(req).formatWith(errorFormatter);
 
@@ -55,7 +55,7 @@ exports.postValidation = async (req, res, next) => {
 
 	const errorFormatter = ({ msg, param }) => {
 		return param + ':' + JSON.stringify(msg);
-	}
+	};
 
 	const result = validationResult(req).formatWith(errorFormatter);
 
@@ -72,7 +72,7 @@ exports.commentValidation = async (req, res, next) => {
 
 	const errorFormatter = ({ msg, param }) => {
 		return param + ':' + JSON.stringify(msg);
-	}
+	};
 
 	const result = validationResult(req).formatWith(errorFormatter);
 

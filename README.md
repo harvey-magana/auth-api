@@ -20,82 +20,128 @@ If you install it locally, you will need to use an API testing software so you c
 
 ## Endpoints 
 #### Auth
-| Method  | Endpoint | Fields | Description | 
-| ------------- | ------------- | ------------- | ------------- |
-| POST  | /api/auth/register  | username (str), email (str), password (str), confirm_password (str), role (null) | Signup |
-| POST   | /api/auth/login  | username (str), password (str) | Signin |
-| POST   | /api/auth/refresh_token  | token (str) or refreshToken (str) | Refresh Token |
-| POST   | /api/auth/check_token  | token (str) or refreshToken (str) | Check token |
-| DELETE  | /api/auth/logout  | username (str) | Signout |
+
+|   | Endpoints |  | 
+| ------------- | :-----------: | ------------- | 
+| POST  | api/auth/register  | 
+| POST   | api/auth/login  | 
+| POST   | api/auth/refresh_token  | 
+| POST   | api/auth/check_token  | 
+| DELETE  | api/auth/logout  | username (str) | Signout |
 * role is automatically included in the request body of /register, then assigned `reader` once you signin.
 
-##### Request body
-| Endpoint  | Required fields |
-| ------------- | ------------- | 
-| /api/auth/register | username (str), email (str), password (str), l  |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-
+##### Request bodies
+```  POST api/auth/register 
+    {
+      "username": "docsavage",
+      "email": "dog@adventure.com",
+      "password": "password1",
+      "confirm_password": "password1",
+      "role": null
+    }
+```
+```  POST api/auth/login
+    {
+      "username": "docsavage",
+      "password": "password1"
+    }
+```
+```   POST api/auth/refresh_token
+    {
+      "username": "docsavage",
+      "email": "dog@adventure.com",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAxMDIsInVzZXJuYW1lIjoid29vZnkiLCJwYXNzd29yZCI6IiQyYSQxMCRBaDJWY0Q1SEd5akhxSHRueXJvTmxlQThCLm1vQkpyVmoxUUF1eU8vdlV1N25lSTBmWDB2VyIsInJvbGUiOiJyZWFkZXIiLCJpYXQiOjE2NTM3ODEyNjUsImV4cCI6MTY1Mzg2NzY2NX0.DRVLJ5T2IcrjeO4kHfVHgUuJbyOIJLRaaNdvOKCm4r8"
+    }
+```
+```   POST api/auth/check_token
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAxMDIsInVzZXJuYW1lIjoid29vZnkiLCJwYXNzd29yZCI6IiQyYSQxMCRBaDJWY0Q1SEd5akhxSHRueXJvTmxlQThCLm1vQkpyVmoxUUF1eU8vdlV1N25lSTBmWDB2VyIsInJvbGUiOiJyZWFkZXIiLCJpYXQiOjE2NTM3ODEyNjUsImV4cCI6MTY1Mzc5OTI2NX0.X1fA1mxTxCHGERB03dJQ5bPwzzHRePOWlc5RFwmEN0c"
+    }
+```
+```   POST api/auth/logout 
+    {
+      "username": "docsavage"
+    }
+```
 #### Users
-| Method  | Endpoint | Fields | Description |
-| ------------- | ------------- | ------------- | ------------- |
-| GET  | /api/users  | none | Get all users | 
-| GET  | /api/users/:id  | param: user id (int) | Get user by id |
-| PUT  | /api/users/:id  | param: user id (int) | Edit user |
-| DELETE  | /api/users/:id  | param: user id (int) | Delete user | 
-| PUT  | /api/users/:id/upload  | param: user id (int) | Upload avatar | 
-| GET  | /api/users/:id/upload  | param: user id (int) | Get avatar | 
-| PATCH  | /api/users/:id/upload  | param: user id (int) | Remove avatart | 
+|   | Endpoints |  |
+| ------------- | :-----------: | ------------- |
+| GET  | api/users  | 
+| GET  | api/users/{user_id}  | 
+| PUT  | api/users/{user_id} | 
+| DELETE  | api/users/{user_id} | 
+| PUT  | api/users/{user_id}/upload  | 
+| GET  | api/users/{user_id}/upload  | 
+| PATCH  | api/users/{user_id}/upload  |  
 
-##### Request body
-| Method  | Endpoint | Required Fields |
-| ------------- | ------------- | ------------- |
-| GET  | /api/users  | none |
-| GET  | /api/users/:id  | none |
-| PUT  | /api/users/:id  | username (str), email (str), password (str) all optional |
-| DELETE  | /api/users/:id  | none |
-| PUT  | /api/users/:id/upload  | file: .png, jpg, .jpeg |
-| GET  | /api/users/:id/upload  | none |
-| PATCH  | /api/users/:id/upload  | none |
+##### Request bodies
+```   PUT api/users/{user_id}
+    {
+      "email": "dog@adventure.com",
+      "password": "password2", 
+      "confirm_password": "password2"
+    }
+```
 
 #### Posts
-| Method  | Endpoint | Fields | Description |
-| ------------- | ------------- | ------------- | ------------- |
-| GET  | /api/posts  | none | Get all posts |
-| GET  | /api/posts/:id  | param: post id (int) | Get post by id |
-| POST  | /api/posts/:id  | param: user id (int) | Create post |
-| PUT  | /api/posts/:id  | param: post id (int) | Edit post |
-| DELETE  | /api/posts/:id  | param: post id (int) | Delete post |
+|   | Endpoints |  | 
+| ------------- | :-----------: | ------------- | 
+| GET  | api/posts  | 
+| GET  | api/posts/{post_id}  | 
+| POST  | api/posts/{user_id}  | 
+| PUT  | api/posts/{post_id} | 
+| DELETE  | api/posts/{post_id}  | 
 
-##### Request body
-| Method  | Endpoint | Required Fields |
-| ------------- | ------------- | ------------- |
-| GET  | /api/posts  | none |
-| GET  | /api/posts/:id | none |
-| POST  | /api/posts/:id  | post_title (str), post_body (str) |
-| PUT  | /api/posts/:id  | post_title (str), post_body (str) optional |
-| DELETE  | /api/posts/:id  | none |
-
+##### Request bodies
+```   POST api/posts/{user_id}
+    {
+      "post_title": "I love danger",
+      "post_body": "I also like drinking coffee."
+    }
+```
+```   PUT api/posts/{post_id}
+    {
+      "post_title": "I love danger",
+      "post_body": "I also like drinking coffee in the junger.",
+      "user_id": 10103
+    }
+```
 
 #### Comments
-| Method  | Endpoint | Fields | Description | 
-| ------------- | ------------- | ------------- | ------------- |
-| GET  | /api/comments  | none | Get all comments |
-| GET  | /api/comments/:id  | param: comment id (int) | Get comment by id |
-| POST  | /api/comments/:id  | param: user_id (int) | Comment on a post |
-| PUT  | /api/comments/:id  | param: comment id (int) | Edit comment |
-| DELETE  | /api/comments/:id  | param: comment id (int) | Delete comment |
+|   | Endpoints |  | 
+| ------------- | :-----------: | ------------- | 
+| GET  | api/comments  | 
+| GET  | api/comments/{comment_id}  | 
+| POST  | api/comments/{user_id} | 
+| PUT  | api/comments/{comment_id}  | 
+| DELETE  | api/comments/{comment_id}  | 
 
-##### Request body
-| Method  | Endpoint | Required Fields |
-| ------------- | ------------- | ------------- |
-| GET  | /api/comments  | none |
-| GET  | /api/comments/:id  | none |
-| POST  | /api/comments/:id   | post_id (int), body (str) |
-| PUT  | /api/comments/:id   | post_id (int), body (str) optional |
-| DELETE  | /api/comments/:id   | none |
+##### Request bodies
+```   POST api/comments/{user_id}
+    {
+      "body": "Yeah, I like Node too!",
+      "post_id": 70201  
+    }
+```
+```   PUT api/comments/{comment_id}
+    {
+      "body": "Yeah, I like Node too! I mean, I totally love it!",
+      "post_id": 70201,
+      "user_id": 10103
+    }
+```
+
+#### Posts Comments
+|   | Endpoints |  | 
+| ------------- | :-----------: | ------------- | 
+| GET  | api/post_comment/{user_id} | 
+
+
+#### User Posts
+|   | Endpoints |  | 
+| ------------- | :-----------: | ------------- | 
+| GET  | api/user_post/{user_id}  | 
+
 
 ## Database schema 
 #### Users 

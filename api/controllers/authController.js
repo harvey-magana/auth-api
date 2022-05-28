@@ -92,14 +92,14 @@ exports.refresh = async (req, res, next) => {
 			const user = {
 				username: postData.username,
 				email: postData.email
-			}
+			};
 
 			const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5h' });
 			const response = {
 				token: token
-			}
+			};
 
-			tokenList[postData.refreshToken].token = token 
+			tokenList[postData.refreshToken].token = token; 
 			res.status(201).json(response);
 		}
 

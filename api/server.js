@@ -49,8 +49,8 @@ server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/posts', postsRouter);
 server.use('/api/comments', commentsRouter);
-server.use('/api/userpost', userPostRouter);
-server.use('/api/postcomment', postCommentRouter);
+server.use('/api/user_post', userPostRouter);
+server.use('/api/post_comment', postCommentRouter);
 
 server.get('/', (req, res) => {
 	res.json({ message: 'The API is up and running... '});
