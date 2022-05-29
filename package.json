@@ -1,6 +1,10 @@
 {
   "name": "auth-api",
   "version": "1.0.0",
+  "engines": {
+    "node": "15.3.0"
+  },
+  "private": false,
   "description": "backend for auth project",
   "main": "index.js",
   "scripts": {

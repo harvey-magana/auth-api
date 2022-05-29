@@ -24,6 +24,11 @@ exports.updateUser = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const userBody = req.body;
+		if (userBody.username) {
+			res.status(405).json({
+				message: 'You cannot update your username.'
+			})
+		}
 		const user = await Users.update(id, userBody);
 
 		if(user) {

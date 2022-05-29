@@ -9,9 +9,9 @@ server.listen(process.env.PORT, process.env.HOST, () => {
 
 /**
  * Pre-deployment list 
- * Review all in-project features that have not been implemented and determine whether they should, 
- * such as creating more complex join statements that put data from users, posts and comments 
- * together with one query 
+ * restrict allowing users to change their username  
+ * fix users changing passwords, it does not function correctly 
+ *  
  * 
  * review the following:
  * https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment
@@ -21,6 +21,10 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * heroku task list:
  * 
  * specify engines version in package.json 
+ * set NODE_ENV to production 
+ * consider adding npm debug for logging 
+ * remove any error reporting that could compromise your production app 
+ * consider adding npm compression to reduce load time 
  * creat a build section in package.json 
  * create and build out a Procfile for heroku to use 
  * - Profile with no extension, such as .txt or .json (no!), contents web: npm start, for example 

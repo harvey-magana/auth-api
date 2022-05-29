@@ -1,7 +1,7 @@
 const server = require('./api/server');
 const request = require('supertest');
 const db = require('./api/db/dbConfig');
-const { generateAccessToken } = require('./api/utils/signTokens');
+const { generateAccessToken } = require('./api/utils/utils.tokens');
 
 const userPayload = {
 	username: 'herman', 
@@ -54,7 +54,7 @@ describe('users', () => {
 			.set('Content-Type', 'application/json')
 			.set('Authorization', `Bearer ${user._body.data.token}`);
 		expect(response.status).toBe(200);
-		expect(response._body.data).toHaveProperty('id');
+		expect(response._body.data[0]).toHaveProperty('id');
 	});
 	it('edit a user', async () => {
 		const jwt = generateAccessToken(userPayload);
