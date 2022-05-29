@@ -19,7 +19,7 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * https://userfront.com/guide/auth/jwt-public-private-keys.html
  * 
  * heroku task list:
- * heroku cli installation (via homebrew)
+ * 
  * specify engines version in package.json 
  * creat a build section in package.json 
  * create and build out a Procfile for heroku to use 
@@ -32,11 +32,11 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * review any node.js and express.js best practice material on pre-deployment and deployment 
  * create your pre-deployment list of items to take care of from Heroku 
  *  
- * separate auth from the rest of the services in the project under the same parent directory 
- * have auth run on port 4000 
- * create certs directory and put public and private .pem files there 
+ *  
  * 
- * add rsa public and private key for jwt 
+ * 
+ * 
+ * 
  * sign token 
  * set token in a cookie 
  * 

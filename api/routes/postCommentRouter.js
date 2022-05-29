@@ -1,8 +1,8 @@
 const express = require('express');
 const postCommentController = require('../controllers/postCommentController');
-//const signTokens = require('../utils/signTokens'); // add signTokens.verifyToken to the route 
+const checkToken = require('../utils/utils.tokens');
 const router = express.Router();
 
-router.get('/:id', postCommentController.getPostComments);
+router.get('/:id', checkToken.verifyToken, postCommentController.getPostComments);
 
 module.exports = router;

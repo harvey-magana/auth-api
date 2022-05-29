@@ -3,7 +3,7 @@ const Users = require('../models/usersModel');
 const jwt = require('jsonwebtoken');
 const jwt_decode = require('jwt-decode');
 const bcryptjs = require('bcryptjs');
-const { generateAccessToken, generateRefreshToken } = require('../utils/signTokens');
+const { generateAccessToken, generateRefreshToken } = require('../utils/utils.tokens');
 
 const tokenList = {};
 
