@@ -9,7 +9,7 @@ server.listen(process.env.PORT, process.env.HOST, () => {
 
 /**
  * Pre-deployment list 
- * restrict allowing users to change their username  
+ *   
  * fix users changing passwords, it does not function correctly 
  *  
  * 
