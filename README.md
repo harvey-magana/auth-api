@@ -27,11 +27,12 @@ If you install it locally, you will need to use an API testing software so you c
 | POST   | api/auth/login  | 
 | POST   | api/auth/refresh_token  | 
 | POST   | api/auth/check_token  | 
-| DELETE  | api/auth/logout  | username (str) | Signout |
+| DELETE  | api/auth/logout  | 
 * role is automatically included in the request body of /register, then assigned `reader` once you signin.
 
 ##### Request bodies
-```  POST api/auth/register 
+```  
+    POST api/auth/register 
     {
       "username": "docsavage",
       "email": "dog@adventure.com",
@@ -40,25 +41,29 @@ If you install it locally, you will need to use an API testing software so you c
       "role": null
     }
 ```
-```  POST api/auth/login
+```  
+    POST api/auth/login
     {
       "username": "docsavage",
       "password": "password1"
     }
 ```
-```   POST api/auth/refresh_token
+```   
+    POST api/auth/refresh_token
     {
       "username": "docsavage",
       "email": "dog@adventure.com",
       "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAxMDIsInVzZXJuYW1lIjoid29vZnkiLCJwYXNzd29yZCI6IiQyYSQxMCRBaDJWY0Q1SEd5akhxSHRueXJvTmxlQThCLm1vQkpyVmoxUUF1eU8vdlV1N25lSTBmWDB2VyIsInJvbGUiOiJyZWFkZXIiLCJpYXQiOjE2NTM3ODEyNjUsImV4cCI6MTY1Mzg2NzY2NX0.DRVLJ5T2IcrjeO4kHfVHgUuJbyOIJLRaaNdvOKCm4r8"
     }
 ```
-```   POST api/auth/check_token
+```   
+    POST api/auth/check_token
     {
       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAxMDIsInVzZXJuYW1lIjoid29vZnkiLCJwYXNzd29yZCI6IiQyYSQxMCRBaDJWY0Q1SEd5akhxSHRueXJvTmxlQThCLm1vQkpyVmoxUUF1eU8vdlV1N25lSTBmWDB2VyIsInJvbGUiOiJyZWFkZXIiLCJpYXQiOjE2NTM3ODEyNjUsImV4cCI6MTY1Mzc5OTI2NX0.X1fA1mxTxCHGERB03dJQ5bPwzzHRePOWlc5RFwmEN0c"
     }
 ```
-```   POST api/auth/logout 
+```   
+    POST api/auth/logout 
     {
       "username": "docsavage"
     }
@@ -75,7 +80,8 @@ If you install it locally, you will need to use an API testing software so you c
 | PATCH  | api/users/{user_id}/upload  |  
 
 ##### Request bodies
-```   PUT api/users/{user_id}
+```   
+    PUT api/users/{user_id}
     {
       "email": "dog@adventure.com",
       "password": "password2", 
@@ -93,13 +99,15 @@ If you install it locally, you will need to use an API testing software so you c
 | DELETE  | api/posts/{post_id}  | 
 
 ##### Request bodies
-```   POST api/posts/{user_id}
+```   
+    POST api/posts/{user_id}
     {
       "post_title": "I love danger",
       "post_body": "I also like drinking coffee."
     }
 ```
-```   PUT api/posts/{post_id}
+```   
+    PUT api/posts/{post_id}
     {
       "post_title": "I love danger",
       "post_body": "I also like drinking coffee in the junger.",
@@ -117,13 +125,15 @@ If you install it locally, you will need to use an API testing software so you c
 | DELETE  | api/comments/{comment_id}  | 
 
 ##### Request bodies
-```   POST api/comments/{user_id}
+```   
+    POST api/comments/{user_id}
     {
       "body": "Yeah, I like Node too!",
       "post_id": 70201  
     }
 ```
-```   PUT api/comments/{comment_id}
+```   
+    PUT api/comments/{comment_id}
     {
       "body": "Yeah, I like Node too! I mean, I totally love it!",
       "post_id": 70201,
