@@ -21,13 +21,13 @@ If you install it locally, you will need to use an API testing software so you c
 ## Endpoints 
 #### Auth
 
-|   | Endpoints |  | 
-| ------------- | :-: | ------------- | 
-| POST  | api/auth/register  | 
-| POST   | api/auth/login  | 
-| POST   | api/auth/refresh_token  | 
-| POST   | api/auth/check_token  | 
-| DELETE  | api/auth/logout  | 
+|   | Endpoints |  
+| ------------- | ------------- 
+| POST  | api/auth/register  
+| POST   | api/auth/login  
+| POST   | api/auth/refresh_token  
+| POST   | api/auth/check_token  
+| DELETE  | api/auth/logout  
 * role is automatically included in the request body of /register, then assigned `reader` once you signin.
 
 ##### Request bodies
