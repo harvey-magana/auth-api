@@ -11,7 +11,7 @@ exports.getAllPosts = async (req, res, next) => {
 
 exports.getPostById = async (req, res, next) => {
 	try {
-		const { id } = req.params; // postId
+		const { id } = req.params; // post id 
 		const post = await Posts.findById(id);
 		res.status(200).json(post);
 	} catch (error) {
@@ -21,7 +21,7 @@ exports.getPostById = async (req, res, next) => {
 
 exports.getUserPostById = async (req, res, next) => {
 	try {
-		const { id } = req.params; // userId
+		const { id } = req.params; // user id 
 		const post = await Posts.findPostByUserId(id);
 		res.status(200).json(post);
 	} catch (error) {
@@ -31,7 +31,7 @@ exports.getUserPostById = async (req, res, next) => {
 
 exports.createPost = async (req, res, next) => {
 	try {
-		const { id } = req.params; // userId // validation to check whether the user id exists or not is missing here! 
+		const { id } = req.params; // user id // validation to check whether the user id exists or not is missing here! 
 		const postTitle = req.body.post_title;
 		const postBody = req.body.post_body;
 
@@ -48,7 +48,7 @@ exports.createPost = async (req, res, next) => {
 
 exports.editPost = async (req, res, next) => {
 	try {
-		const { id } = req.params; // postId
+		const { id } = req.params; // post id 
 		const body = req.body;
 
 		const post = await Posts.update(id, body);
@@ -71,7 +71,7 @@ exports.editPost = async (req, res, next) => {
 
 exports.deletePost = async (req, res, next) => {
 	try {
-		const { id } = req.params; // postId
+		const { id } = req.params; // post id 
 		const post = await Posts.remove(id);
 
 		if (post) {

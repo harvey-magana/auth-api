@@ -12,7 +12,7 @@ exports.getAllUsers = async (req, res, next) => {
 
 exports.getOneUser = async (req, res, next) => {
 	try {
-		const { id } = req.params;
+		const { id } = req.params; // user id 
 		const [user] = await Users.findById(id);
 		res.status(200).json({data: user});
 	} catch (error) {
@@ -22,7 +22,7 @@ exports.getOneUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
 	try {
-		const { id } = req.params;
+		const { id } = req.params; // user id 
 		const userBody = req.body;
 		if (userBody.username) {
 			res.status(405).json({
@@ -48,7 +48,7 @@ exports.updateUser = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
 	try {
-		const userId = req.params.id;
+		const userId = req.params.id; // user id 
 		const user = await Users.remove(userId);
 
 		if (user) {
@@ -89,7 +89,7 @@ exports.uploadImage = async (req, res, next) => {
 			});
 		}
 
-		const { id } = req.params;
+		const { id } = req.params; // user id 
 
 		await Users.addImage({ id: id, image_path: uploadPath });
 		sampleFile.mv(uploadPath, function(err) {
@@ -105,7 +105,7 @@ exports.uploadImage = async (req, res, next) => {
 
 exports.getUserImage = async (req, res, next) => {
 	try {
-		const { id } = req.params;
+		const { id } = req.params; // user id 
 		const [user] = await Users.findById(id);
 
 		if(!user) {
@@ -127,7 +127,7 @@ exports.getUserImage = async (req, res, next) => {
 
 exports.deleteImage = async (req, res, next) => {
 	try {
-		const id = req.params.id;
+		const id = req.params.id; // user id 
 		const [user] = await Users.findById(id);
 
 		const image = await Users.removeImage({ id: user.id, image_path: user.image_path});

@@ -11,7 +11,7 @@ exports.getAllComments = async (req, res, next) => {
 
 exports.getCommentById = async (req, res, next) => {
 	try {
-		const { id } = req.params;
+		const { id } = req.params; // comment id
 		const comment = await Comments.findById(id);
 		res.status(200).json(comment);
 	} catch (error) {
@@ -21,7 +21,7 @@ exports.getCommentById = async (req, res, next) => {
 
 exports.getPostComments = async (req, res, next) => {
 	try {
-		const { id } = req.params; // id is user_id
+		const { id } = req.params; // user id
 		const comment = await Comments.findPostComments(id);
 		res.status(200).json(comment);
 	} catch (error) {
@@ -46,7 +46,7 @@ exports.createComment = async (req, res, next) => {
 exports.updateComment = async (req, res, next) => {
 	try {
 		// postComment cannot be more than 255 char 
-		const { id } = req.params;
+		const { id } = req.params; // comment id
 		const body = req.body;
 
 		const comment = await Comments.update(id, body);
@@ -61,7 +61,7 @@ exports.updateComment = async (req, res, next) => {
 
 exports.deleteComment = async (req, res, next) => {
 	try {
-		const { id } = req.params;
+		const { id } = req.params; // comment id 
 		const comment = await Comments.remove(id);
 
 		if (comment) {
