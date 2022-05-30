@@ -21,7 +21,7 @@ If you install it locally, you will need to use an API testing software so you c
 ## Endpoints 
 #### Auth
 
-|   Endpoints  | 
+|   | Endpoints   | 
 | ------------- | :-: | ------------- | 
 | POST  | api/auth/register  | 
 | POST   | api/auth/login  | 
