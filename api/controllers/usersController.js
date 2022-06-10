@@ -90,7 +90,7 @@ exports.uploadImage = async (req, res, next) => {
 		}
 
 		const { id } = req.params; // user id 
-
+		console.log('usersController line 93', id)
 		await Users.addImage({ id: id, image_path: uploadPath });
 		sampleFile.mv(uploadPath, function(err) {
 			if(err) return res.status(500).send(err);

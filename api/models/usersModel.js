@@ -36,17 +36,18 @@ async function add(userData) {
 }
 
 async function update(id, changes) {
-	await db('users').where({ id }).update(changes);
-	return await findById(id);
+	const [updateUser] = await db('users').where({ id }).update(changes).returning('*');
+	return updateUser;
 }
 
 async function remove(id) {
-	return await db('users').where({ id }).del();
+	const [deleteUser] = await db('users').where({ id }).del().returning('*');
+	return deleteUser;
 }
 
 async function addImage(changes) {
-	await db('users').where({id: changes.id}).update({image_path: changes.image_path});
-	return await findById({id: changes.id});
+	const [userImg] = await db('users').where({id: changes.id}).update({image_path: changes.image_path}).returning('*');
+	return userImg;
 }
 
 async function findUserImage(id) {
@@ -56,5 +57,6 @@ async function findUserImage(id) {
 }
 
 async function removeImage(id) {
-	return await db('users').where(id).update({ image_path: null });
+	const [removeImg] = await db('users').where(id).update({ image_path: null }).returning('*');
+	return removeImg;
 }

@@ -17,7 +17,15 @@
         table.timestamps(false, true);
       })
     }
-  })
+  });
+
+  await knex.raw(`
+    CREATE TRIGGER set_timestamp
+    AFTER INSERT OR UPDATE 
+    ON posts 
+    FOR EACH ROW 
+    EXECUTE PROCEDURE trigger_set_timestamp(); 
+`);
 };
 
 /**
