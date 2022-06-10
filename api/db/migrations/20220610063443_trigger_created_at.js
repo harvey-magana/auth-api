@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-  return knex.raw(`
+	return knex.raw(`
     CREATE OR REPLACE FUNCTION trigger_set_timestamp() 
       RETURNS TRIGGER 
       LANGUAGE plpgsql
@@ -13,7 +13,7 @@ exports.up = function(knex) {
       RETURN NEW;
     END;
     $$
-  `)
+  `);
 };
 
 /**
@@ -21,7 +21,7 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-  return knex.raw(`
+	return knex.raw(`
     DROP FUNCTION IF EXISTS trigger_set_timestamp() CASCADE;
-  `)
+  `);
 };

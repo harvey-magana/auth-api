@@ -32,11 +32,12 @@ async function add(userData) {
 }
 
 async function update(id, changes) {
-	const count = await db('posts').where({ id }).update(changes);
+	const count = await db('posts').where({ id }).update(changes).returning('*');
 	return count;
 }
 
 async function remove(id) {
-	return await db('posts').where({ id }).del();
+	const [removePost] = await db('posts').where({ id }).del().returning('*');
+	return removePost;
 }
 

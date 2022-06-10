@@ -31,12 +31,13 @@ async function add(filter) {
 }
 
 async function update(id, changes) {
-	const comment = await db('comments').where({id}).update(changes);
+	const comment = await db('comments').where({id}).update(changes).returning('*');
 	return comment;
 }
 
 async function remove(id) {
-	return await db('comments').where({id}).del();
+	const [removeComment] = await db('comments').where({id}).del().returning('*');
+	return removeComment;
 }
 
 async function findPostComments(postId) {
