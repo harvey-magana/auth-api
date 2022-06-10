@@ -23,9 +23,12 @@ async function findById(id) {
 	return posts;
 }
 
-async function add(filter) {
-	const [ids] = await db('posts').insert(filter);
-	return await (findById(ids));
+async function add(userData) {
+	const [ids] = await db('posts').insert({
+		post_title: userData['post_title'], 
+		post_body: userData['post_body'], 
+		user_id: userData['user_id'] }).returning('*');
+	return ids;
 }
 
 async function update(id, changes) {

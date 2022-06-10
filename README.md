@@ -70,14 +70,14 @@ If you install it locally, you will need to use an API testing software so you c
 ```
 #### Users
 |   | Endpoints |  |
-| ------------- | :-----------: | ------------- |
+| ------------- | ------------- 
 | GET  | api/users  | 
-| GET  | api/users/{user_id}  | 
-| PUT  | api/users/{user_id} | 
-| DELETE  | api/users/{user_id} | 
-| PUT  | api/users/{user_id}/upload  | 
-| GET  | api/users/{user_id}/upload  | 
-| PATCH  | api/users/{user_id}/upload  |  
+| GET  | api/users/{user_id}  
+| PUT  | api/users/{user_id} 
+| DELETE  | api/users/{user_id} 
+| PUT  | api/users/{user_id}/upload  
+| GET  | api/users/{user_id}/upload  
+| PATCH  | api/users/{user_id}/upload  
 
 ##### Request bodies
 ```   
@@ -91,12 +91,12 @@ If you install it locally, you will need to use an API testing software so you c
 
 #### Posts
 |   | Endpoints |  | 
-| ------------- | :-----------: | ------------- | 
-| GET  | api/posts  | 
-| GET  | api/posts/{post_id}  | 
-| POST  | api/posts/{user_id}  | 
-| PUT  | api/posts/{post_id} | 
-| DELETE  | api/posts/{post_id}  | 
+| ------------- | ------------- 
+| GET  | api/posts  
+| GET  | api/posts/{post_id}  
+| POST  | api/posts/{user_id}  
+| PUT  | api/posts/{post_id} 
+| DELETE  | api/posts/{post_id}  
 
 ##### Request bodies
 ```   
@@ -117,12 +117,12 @@ If you install it locally, you will need to use an API testing software so you c
 
 #### Comments
 |   | Endpoints |  | 
-| ------------- | :-----------: | ------------- | 
-| GET  | api/comments  | 
-| GET  | api/comments/{comment_id}  | 
-| POST  | api/comments/{user_id} | 
-| PUT  | api/comments/{comment_id}  | 
-| DELETE  | api/comments/{comment_id}  | 
+| ------------- | ------------- 
+| GET  | api/comments  
+| GET  | api/comments/{comment_id}  
+| POST  | api/comments/{user_id} 
+| PUT  | api/comments/{comment_id}  
+| DELETE  | api/comments/{comment_id}  
 
 ##### Request bodies
 ```   
@@ -143,14 +143,14 @@ If you install it locally, you will need to use an API testing software so you c
 
 #### Posts Comments
 |   | Endpoints |  | 
-| ------------- | :-----------: | ------------- | 
-| GET  | api/post_comment/{user_id} | 
+| ------------- | ------------- 
+| GET  | api/post_comment/{user_id} 
 
 
 #### User Posts
 |   | Endpoints |  | 
-| ------------- | :-----------: | ------------- | 
-| GET  | api/user_post/{user_id}  | 
+| ------------- | ------------- 
+| GET  | api/user_post/{user_id}  
 
 
 ## Database schema 

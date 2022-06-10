@@ -2,12 +2,12 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
  */
-exports.seed = async function(knex) {
+ exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('users').del()
   await knex('users').insert([
     {
-      id: 10101, 
+      id: 1500, 
       username: 'testuser3', 
       email: 'test@test3.com', 
       password: 'password1', 

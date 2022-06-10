@@ -9,7 +9,13 @@ const tokenList = {};
 
 exports.register = async (req, res, next) => {
 	try {
-		const { username, email, password, confirm_password, role } = req.body;
+
+		const username = req.body.username;
+		const email = req.body.email;
+		const password = req.body.password;
+		const confirm_password = req.body.confirm_password;
+		const image_path = req.body.image_path;
+		const role = req.body.role;
 
 		const user = await Users.findOne({ username: username }).first();
   
@@ -27,10 +33,11 @@ exports.register = async (req, res, next) => {
 			email, 
 			password: hashpassword,
 			confirm_password,
+			image_path,
 			role: role || 'reader'
 		});
-  
-		res.status(201).json({ data: newUser });
+
+		res.status(201).json(newUser);
 	} catch (error) {
 		next(error.message);
 	}

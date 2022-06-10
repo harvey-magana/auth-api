@@ -25,8 +25,14 @@ function findOne(filter) {
 }
 
 async function add(userData) {
-	const [ids] = await db('users').insert(userData);
-	return await (findById(ids));
+	const [ids] = await db('users').insert({
+		username: userData['username'], 
+		email: userData['email'], 
+		password: userData['password'], 
+		confirm_password: userData['confirm_password'], 
+		role: userData['role'], 
+		image_path: userData['image_path'] }).returning('*');
+	return ids;
 }
 
 async function update(id, changes) {

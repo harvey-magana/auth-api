@@ -26,8 +26,8 @@ async function findById(id) {
 }
 
 async function add(filter) {
-	const [ids] = await db('comments').insert(filter);
-	return await (findById(ids));
+	const [ids] = await db('comments').insert(filter).returning('*');
+	return ids;
 }
 
 async function update(id, changes) {

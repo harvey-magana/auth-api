@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = async function(knex) {
+ exports.up = async function(knex) {
   await knex.schema.hasTable('posts').then(function(exists) {
     if(!exists) {
       return knex.schema.createTable('posts', (table) => {
@@ -13,7 +13,6 @@ exports.up = async function(knex) {
         table.foreign('user_id')
           .references('id')
           .inTable('users')
-          .onUpdate('CASCADE')
           .onDelete('CASCADE');
         table.timestamps(false, true);
       })
@@ -25,6 +24,6 @@ exports.up = async function(knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function(knex) {
+ exports.down = function(knex) {
   return knex.schema.dropTableIfExists('posts');
 };
