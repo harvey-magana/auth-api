@@ -18,8 +18,6 @@ router.get('/', checkToken.verifyToken, accessController.allowIfLoggedin, access
 
 router.get('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, accessController.grantAccess('readAny', 'comment'), commentsController.getCommentById);
 
-router.get('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, accessController.grantAccess('readAny', 'comment'), commentsController.getPostComments);
-
 /*********************************/
 /******** CREATE COMMENTS ********/
 /*********************************/

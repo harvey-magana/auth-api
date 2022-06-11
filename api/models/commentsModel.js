@@ -7,7 +7,6 @@ module.exports = {
 	add,
 	update,
 	remove,
-	findPostComments,
 	findCommentById
 };
 
@@ -38,11 +37,6 @@ async function update(id, changes) {
 async function remove(id) {
 	const [removeComment] = await db('comments').where({id}).del().returning('*');
 	return removeComment;
-}
-
-async function findPostComments(postId) {
-	return await db('comments').join('posts', 'posts.id', 'post_id').select('comments.*', 'title as post')
-		.where('post_id', postId);
 }
 
 async function findCommentById(id) {

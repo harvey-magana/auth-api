@@ -19,16 +19,6 @@ exports.getCommentById = async (req, res, next) => {
 	}
 };
 
-exports.getPostComments = async (req, res, next) => {
-	try {
-		const { id } = req.params; // user id
-		const comment = await Comments.findPostComments(id);
-		res.status(200).json(comment);
-	} catch (error) {
-		next(error.message);
-	}
-};
-
 exports.createComment = async (req, res, next) => {
 	try {
 		// postComment cannot be more than 255 char 
