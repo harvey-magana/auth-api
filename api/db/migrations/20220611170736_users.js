@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = async function(knex) {
+ exports.up = async function(knex) {
 	await knex.schema.hasTable('users').then(function(exists) {
 		if(!exists) {
 			return knex.schema.createTable('users', (table) => {
@@ -20,7 +20,7 @@ exports.up = async function(knex) {
 
 	await knex.raw(`
     CREATE TRIGGER set_timestamp
-    AFTER INSERT OR UPDATE 
+    BEFORE UPDATE 
     ON users 
     FOR EACH ROW 
     EXECUTE PROCEDURE trigger_set_timestamp(); 

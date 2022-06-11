@@ -2,18 +2,18 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = async function(knex) {
-	await knex.schema.hasTable('posts').then(function(exists) {
-		if(!exists) {
-			return knex.schema.createTable('posts', (table) => {
+ exports.up = async function(knex) {
+	await knex.schema.hasTable('comments').then(function(exists) {
+		if (!exists) {
+			return knex.schema.createTable('comments', (table) => {
 				table.increments('id', 6).primary();
-				table.string('post_title', 100).notNullable();
-				table.string('post_body', 255);
-				table.integer('user_id');
-				table.foreign('user_id')
+				table.integer('post_id');
+				table.unique('user_id');
+				table.unique('user_id')
 					.references('id')
 					.inTable('users')
 					.onDelete('CASCADE');
+				table.string('body', 255);
 				table.timestamps(false, true);
 			});
 		}
@@ -21,8 +21,8 @@ exports.up = async function(knex) {
 
 	await knex.raw(`
     CREATE TRIGGER set_timestamp
-    AFTER INSERT OR UPDATE 
-    ON posts 
+    BEFORE UPDATE 
+    ON comments 
     FOR EACH ROW 
     EXECUTE PROCEDURE trigger_set_timestamp(); 
 `);
@@ -33,5 +33,5 @@ exports.up = async function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-	return knex.schema.dropTableIfExists('posts');
+	return knex.schema.dropTableIfExists('comments');
 };

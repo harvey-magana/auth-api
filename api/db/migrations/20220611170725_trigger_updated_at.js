@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = function(knex) {
+ exports.up = function(knex) {
 	return knex.raw(`
     CREATE OR REPLACE FUNCTION trigger_set_timestamp() 
       RETURNS TRIGGER 

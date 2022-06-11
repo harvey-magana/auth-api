@@ -7,10 +7,10 @@
   await knex('posts').del()
   await knex('posts').insert([
     {
-      id: 2000, 
+      id: 51, 
       post_title: 'Node is awesome', 
       post_body: 'This an awesome and very portable server.',
-      user_id: 1500,
+      user_id: 149,
       created_at: '2021-09-01', 
       updated_at: '2021-09-01'
     }

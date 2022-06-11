@@ -7,7 +7,7 @@
   await knex('users').del()
   await knex('users').insert([
     {
-      id: 1500, 
+      id: 149, 
       username: 'testuser3', 
       email: 'test@test3.com', 
       password: 'password1', 
