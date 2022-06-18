@@ -9,40 +9,43 @@ server.listen(process.env.PORT, process.env.HOST, () => {
 
 /**
  * Pre-deployment list 
- *   
+ *   https://medium.com/geekculture/deploy-node-application-and-postgresql-database-to-heroku-6efaa6be3b9b
  * fix users changing passwords, it does not function correctly, consider password reset:
  *  https://dev.to/cyberwolve/how-to-implement-password-reset-via-email-in-node-js-132m
  * 
  * review the following:
+ * https://devcenter.heroku.com/articles/getting-started-with-nodejs (review this!)
  * https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/deployment
- * https://expressjs.com/en/advanced/best-practice-performance.html
- * https://expressjs.com/en/advanced/best-practice-security.html
  * https://devcenter.heroku.com/articles/deploying-nodejs
  * https://userfront.com/guide/auth/jwt-public-private-keys.html
  * 
  * heroku task list:
- *
- * specify engines version in package.json 
- * heroku create 
- * git push heroku master 
- * heroku open 
- * set NODE_ENV to production: heroku config:set NODE_ENV='production'
- * consider adding npm debug for logging 
- * remove any error reporting that could compromise your production app 
- * consider adding npm compression to reduce load time 
- * creat a build section in package.json 
- * create and build out a Procfile for heroku to use 
- * - Profile with no extension, such as .txt or .json (no!), contents web: npm start, for example 
- * - add Procile to root 
- * run npm install 
- * run heroku local web 
  * 
  * 
- * review any node.js and express.js best practice material on pre-deployment and deployment 
- * create your pre-deployment list of items to take care of from Heroku 
- *  
- *  
+ * performance: https://expressjs.com/en/advanced/best-practice-performance.html
+ * npm compression 
+ * reverse proxy (nginx)
+ * logging (npm winston or npm bunyan)
+ * npm debug 
+ * exceptions handling 
+ * api restarts if it stops for any reason
+ * process manager: pm2 or npm forever 
+ * init system: systemd or upstart
+ * cache request results 
+ * load balancer 
  * 
+ * security: https://expressjs.com/en/advanced/best-practice-security.html
+ * audit dependencies 
+ * tls 
+ * npm helmet, maximize use and configuration
+ * reduce fingerprinting
+ * session cookies 
+ * npm node-rate-limiter-flexible
+ * npm snyk 
+ * npm csurf 
+ * sqlmap 
+ * nmap 
+ * SSLyze
  * 
  * 20220529909am
  * password

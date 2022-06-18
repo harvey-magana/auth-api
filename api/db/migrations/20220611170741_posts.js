@@ -9,7 +9,7 @@
 				table.increments('id', 6).primary();
 				table.string('post_title', 100).notNullable();
 				table.string('post_body', 255);
-				table.unique('user_id');
+				table.bigInteger('user_id');
 				table.foreign('user_id')
 					.references('id')
 					.inTable('users')
