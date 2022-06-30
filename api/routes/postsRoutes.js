@@ -22,18 +22,18 @@ router.get('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, acc
 /******** CREATE POST ********/
 /*****************************/
 
-router.post('/:id', checkToken.verifyToken, validate.postValidation, accessController.allowIfLoggedin, accessController.grantAccess('createAny', 'post'), validate.postValidation, postsController.createPost);
+router.post('/:id', checkToken.verifyToken, validate.postValidation, accessController.allowIfLoggedin, validate.postValidation, postsController.createPost);
 
 /****************************/
 /******** UPDATE POST********/
 /****************************/
 
-router.put('/:id', checkToken.verifyToken, validate.postValidation, accessController.allowIfLoggedin, accessController.grantAccess('updateAny', 'post'), postsController.editPost);
+router.put('/:id', checkToken.verifyToken, validate.postValidation, accessController.allowIfLoggedin, postsController.editPost);
 
 /*****************************/
 /******** DELETE POST ********/
 /*****************************/
 
-router.delete('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, accessController.grantAccess('deleteAny', 'post'), postsController.deletePost);
+router.delete('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, postsController.deletePost);
 
 module.exports = router;
