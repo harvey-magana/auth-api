@@ -10,30 +10,30 @@ const router = express.Router();
 /********* GET COMMENTS **********/
 /*********************************/
 
-router.get('/', checkToken.verifyToken, accessController.allowIfLoggedin, accessController.grantAccess('readAny', 'comment'), commentsController.getAllComments);
+router.get('/', checkToken.verifyToken, accessController.allowIfLoggedin, commentsController.getAllComments);
 
 /********************************/
 /********* GET COMMENTS *********/
 /********************************/
 
-router.get('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, accessController.grantAccess('readAny', 'comment'), commentsController.getCommentById);
+router.get('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, commentsController.getCommentById);
 
 /*********************************/
 /******** CREATE COMMENTS ********/
 /*********************************/
 
-router.post('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, accessController.grantAccess('createAny', 'comment'), validate.commentValidation, commentsController.createComment);
+router.post('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, validate.commentValidation, commentsController.createComment);
 
 /*********************************/
 /******** UPDATE COMMENTS ********/
 /*********************************/
 
-router.put('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, accessController.grantAccess('updateAny', 'comment'), commentsController.updateComment);
+router.put('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, commentsController.updateComment);
 
 /*********************************/
 /******** DELETE COMMENTS ********/
 /*********************************/
 
-router.delete('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, accessController.grantAccess('deleteAny', 'comment'), commentsController.deleteComment);
+router.delete('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, commentsController.deleteComment);
 
 module.exports = router;
