@@ -1,5 +1,5 @@
-//const { roles } = require('../utils/roles');
-/*
+const { roles } = require('../utils/roles');
+
 exports.grantAccess = function(action, resource) {
 	return async (req, res, next) => {
 		try {
@@ -24,7 +24,7 @@ exports.grantAccess = function(action, resource) {
 		}
 	};
 };
-*/
+
 exports.allowIfLoggedin = async (req, res, next) => {
 	try {
 		const user = await req.session.verified;
