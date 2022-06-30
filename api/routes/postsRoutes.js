@@ -16,7 +16,7 @@ router.get('/', checkToken.verifyToken, accessController.allowIfLoggedin, access
 /********* GET POST *********/
 /*****************************/
 
-router.get('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, accessController.grantAccess('readAny', 'post'), postsController.getPostById);
+router.get('/:id', checkToken.verifyToken, accessController.allowIfLoggedin, postsController.getPostById);
 
 /*****************************/
 /******** CREATE POST ********/

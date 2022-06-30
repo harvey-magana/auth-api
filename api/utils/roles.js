@@ -5,7 +5,7 @@ exports.roles = (function() {
 	ac.grant('reader')
 		.createAny('post').readAny('post').updateOwn('post').deleteOwn('post')
 		.createAny('comment').readAny('comment').updateOwn('comment').deleteOwn('comment')
-		.readOwn('profile', ['*']).updateAny('profile').deleteAny('profile')
+		.readOwn('profile', ['*']).updateOwn('profile').deleteAny('profile')
 		.readAny('avatar').updateAny('avatar').deleteAny('avatar');
 
 	ac.grant('moderator')

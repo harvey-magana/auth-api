@@ -13,18 +13,16 @@ exports.getAllPosts = async (req, res, next) => {
 exports.getPostById = async (req, res, next) => {
 	try {
 		const { id } = req.params; // post id 
-		const post = await Posts.findById(id);
-		res.status(200).json(post);
-	} catch (error) {
-		next(error.message);
-	}
-};
+		const data = req.user;
 
-exports.getUserPostById = async (req, res, next) => {
-	try {
-		const { id } = req.params; // user id 
-		const post = await Posts.findPostByUserId(id);
-		res.status(200).json(post);
+		const permission = (data.id === id && roles.can(data.role).readOwn('post').granted) ? roles.can(data.role).readOwn('post') : roles.can(data.role).readAny('post');
+
+		if(permission.granted) {
+			const post = await Posts.findById(id);
+
+			return res.status(200).json(post);
+		}
+		next();
 	} catch (error) {
 		next(error.message);
 	}
@@ -37,7 +35,7 @@ exports.createPost = async (req, res, next) => {
 		const postTitle = req.body.post_title;
 		const postBody = req.body.post_body;
 
-		const permission = (data.id === id) ? roles.can(data.role).createOwn('post') : roles.can(data.role).createAny('post');
+		const permission = (data.id === id && roles.can(data.role).createOwn('post').granted) ? roles.can(data.role).createOwn('post') : roles.can(data.role).createAny('post');
 
 		if(permission.granted) {
 			const post = await Posts.add({user_id: id, post_title: postTitle, post_body: postBody});
@@ -87,7 +85,7 @@ exports.deletePost = async (req, res, next) => {
 		const data = req.user;
 		const body = req.body;
 
-		const permission = (data.id === body.user_id && roles.can(data.role).updateOwn('post').granted) ? roles.can(data.role).updateOwn('post') : roles.can(data.role).updateAny('post');
+		const permission = (data.id === body.user_id && roles.can(data.role).deleteOwn('post').granted) ? roles.can(data.role).deleteOwn('post') : roles.can(data.role).deleteAny('post');
 
 		if(permission.granted) {
 			const post = await Posts.remove(id);
