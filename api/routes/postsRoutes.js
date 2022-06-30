@@ -10,7 +10,7 @@ const router = express.Router();
 /********* GET POSTS **********/
 /******************************/
 
-router.get('/', checkToken.verifyToken, accessController.allowIfLoggedin, accessController.grantAccess('readAny', 'post'), postsController.getAllPosts);
+router.get('/', checkToken.verifyToken, accessController.allowIfLoggedin, postsController.getAllPosts);
 
 /*****************************/
 /********* GET POST *********/
