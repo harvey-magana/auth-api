@@ -7,6 +7,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const fileUpload = require('express-fileupload');
 const KnexSessionStore = require('connect-session-knex')(session);
+const compression = require('compression');
 
 const store = new KnexSessionStore({
 	knex: require('../api/db/dbConfig'),
@@ -25,6 +26,7 @@ const commentsRouter = require('../api/routes/commentsRouter');
 const userPostRouter = require('../api/routes/userPostRoutes');
 const postCommentRouter = require('../api/routes/postCommentRouter');
 
+server.use(compression());
 server.use(fileUpload({
 	createParentPath: true,
 	limits: {
