@@ -24,7 +24,7 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * 
  * performance: https://expressjs.com/en/advanced/best-practice-performance.html
  * npm compression 
- * reverse proxy (nginx)
+ * reverse proxy (nginx) https://smali-kazmi.medium.com/setup-nginx-node-js-on-mac-os-x-b31eda9f7d5d, https://gist.github.com/natchiketa/987524a561e892924e81, https://jojozhuang.github.io/architecture/setting-up-reverse-proxy-with-nginx-for-node-server/
  * logging (npm winston or npm bunyan)
  * npm debug 
  * exceptions handling 

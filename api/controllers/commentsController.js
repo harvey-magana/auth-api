@@ -60,9 +60,9 @@ exports.updateComment = async (req, res, next) => {
 			return res.status(201).json({
 				message: 'Comment to post updated.',
 				comment
-			})
+			});
 		}
-;
+
 	} catch (error) {
 		next(error.message);
 	}
