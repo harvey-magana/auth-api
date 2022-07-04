@@ -1,6 +1,11 @@
 require('dotenv').config();
 
 const server = require('./api/server');
+const logger = require('./logger');
+
+logger.info('info log')
+logger.warn('warn log')
+logger.error('error log');
 
 server.listen(process.env.PORT, process.env.HOST, () => {
 	console.log(`\n *** Server is listening on http://${process.env.HOST}:${process.env.PORT}`.black.bgYellow.underline);
@@ -23,29 +28,27 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * 
  * 
  * performance: https://expressjs.com/en/advanced/best-practice-performance.html
- * npm compression 
+ * 
  * reverse proxy (nginx) https://smali-kazmi.medium.com/setup-nginx-node-js-on-mac-os-x-b31eda9f7d5d, https://gist.github.com/natchiketa/987524a561e892924e81, https://jojozhuang.github.io/architecture/setting-up-reverse-proxy-with-nginx-for-node-server/
- * logging (npm winston or npm bunyan)
- * npm debug 
- * exceptions handling 
- * api restarts if it stops for any reason
- * process manager: pm2 or npm forever 
- * init system: systemd or upstart
+ * npm debug
+ * api restarts if it stops for any reason (nodemon?) (kind of..., nodemon is for development and pm2 is the same thing for production)
+ * process manager: pm2 or npm forever, https://flaviocopes.com/pm2/, 
+ * init system: systemd or upstart (look up launchd and launchctl for mac)
+ * load balancer (consider nginx or express.js custom method)
  * cache request results 
- * load balancer 
  * 
  * security: https://expressjs.com/en/advanced/best-practice-security.html
  * audit dependencies 
- * tls 
+ * tls (nginx)
  * npm helmet, maximize use and configuration
- * reduce fingerprinting
  * session cookies 
  * npm node-rate-limiter-flexible
  * npm snyk 
- * npm csurf 
- * sqlmap 
- * nmap 
- * SSLyze
+ * npm csurf (session middleware must be set up before implementing this)
+ * sqlmap (brew install sqlmap)
+ * nmap (brew install nmap)
+ * SSLyze (brew install SSLyze)
+ * reduce fingerprinting
  * 
  * 20220529909am
  * password
