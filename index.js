@@ -29,7 +29,6 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * 
  * performance: https://expressjs.com/en/advanced/best-practice-performance.html
  * 
- * reverse proxy (nginx) https://smali-kazmi.medium.com/setup-nginx-node-js-on-mac-os-x-b31eda9f7d5d, https://gist.github.com/natchiketa/987524a561e892924e81, https://jojozhuang.github.io/architecture/setting-up-reverse-proxy-with-nginx-for-node-server/
  * npm debug
  * api restarts if it stops for any reason (nodemon?) (kind of..., nodemon is for development and pm2 is the same thing for production)
  * process manager: pm2 or npm forever, https://flaviocopes.com/pm2/, 
