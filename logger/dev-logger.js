@@ -1,23 +1,39 @@
-const {createLogger, format, transports} = require('winston');
-const {combine, timestamp, label, printf} = format;
+const winston = require('winston');
+require('winston-daily-rotate-file');
+const {combine, timestamp, label, json} = winston.format;
+
+const fileRotateTransport = new winston.transports.DailyRotateFile({
+  filename: './logger/logs/combined-%DATE%.log',
+  datePattern: 'YYYY-MM-DD HH:mm:ss',
+  maxFiles: '1d',
+});
 
 function devLogger() {
-  const devFormat = printf(({level, message, label, timestamp, stack }) => {
+  const devFormat = json(({level, message, label, timestamp, stack }) => {
     return `${timestamp} [${label}] ${level}: ${stack || message}`
   });
   
-  return createLogger({
+  return winston.createLogger({
+    level: 'http',
     format: combine(
       label({ label: 'dev env log'}), 
       timestamp({ format: 'YYYY-MM-DD HH:mm:ss'}),
-      format.errors({stack: true}),
+      winston.format.errors({stack: true}),
       devFormat
     ),
-    transports: [new transports.Console(), new transports.Http()]
+    transports: [new winston.transports.Console({
+      level: 'info', 
+      format: combine(timestamp(), json())
+    }), new winston.transports.Http({
+      level: 'warn',
+      format: combine(timestamp(), json()),
+      host: 'localhost', port:3000
+    }),
+    fileRotateTransport],
+    exceptionHandlers: [
+      new winston.transports.File({ filename: './logger/exceptions/exceptions.log' })
+    ]
   })
 }
-
-// 6. set level to 'info' 
-// 7. set it up to handle exceptions 
 
 module.exports = devLogger;

@@ -1,10 +1,16 @@
-const {createLogger, format, transports} = require('winston');
-const {combine, timestamp, label, errors, json} = format;
+const winston = require('winston');
+const {combine, timestamp, label, errors, json} = winston.format;
 
 function prodLogger() {
-  return createLogger({
-    format: combine(label({ label: 'test winston'}), timestamp(), errors({stack: true}), json()),
-    transports: [new transports.Console(), new transports.Http()]
+  return winston.createLogger({
+    format: combine(label({ label: 'prod env log'}), timestamp(), errors({stack: true}), json()),
+    transports: [new winston.transports.Console({
+      level: 'info', 
+      format: combine(timestamp(), json())
+    }), new winston.transports.Http({
+      level: 'warn',
+      format: combine(timestamp(), json())
+    })]
   })
 }
 

@@ -6,6 +6,7 @@ const logger = require('./logger');
 logger.info('info log')
 logger.warn('warn log')
 logger.error('error log');
+logger.http('http log');
 
 server.listen(process.env.PORT, process.env.HOST, () => {
 	console.log(`\n *** Server is listening on http://${process.env.HOST}:${process.env.PORT}`.black.bgYellow.underline);
