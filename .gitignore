@@ -4,3 +4,5 @@ node_modules/*
 npm-debug.log
 api/utils/keys/rsa.key
 api/utils/keys/rsa.key.pub
+logger
+logger/logs/*

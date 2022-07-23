@@ -185,3 +185,73 @@ exports.deleteImage = async (req, res, next) => {
 	}
 };
 
+exports.upgradeUser = async (req, res, next) => {
+	try {
+		const { id } = req.params; // user id 
+		let session = req.session.verified;
+		let upgradeBody = {};
+		let [user] = await Users.findById(id);
+
+		if (user.id === session.id && user.role === 'reader') {
+      session.role = 'moderator';
+      upgradeBody.username = session.username;
+      upgradeBody.role = session.role;
+    } else if (user.role === 'moderator') {
+      session.role = 'editor';
+      upgradeBody.username = session.username;
+      upgradeBody.role = session.role;
+    } else {
+      console.error('This is as high as it goes, sorry...');
+    }
+
+    if (Object.keys(upgradeBody).length > 0) {
+      user = await Users.update(id, upgradeBody);
+      return res.status(201).json({
+				data: user,
+				message: 'Role updated...'
+			});
+    } else {
+			return res.status(400).json({
+				message: 'Empty object, nothing to upgrade.'
+			});
+    }
+	} catch (error) {
+		next(error + '!!!');
+	}
+}
+
+exports.downgradeUser = async (req, res, next) => {
+	try {
+		const { id } = req.params; // user id 
+		let session = req.session.verified;
+		let downgradeBody = {};
+		let [user] = await Users.findById(id);
+
+		if (user.id === session.id && user.role === 'editor') {
+			session.role = 'moderator';
+      downgradeBody.username = session.username;
+      downgradeBody.role = session.role;
+		} else if (user.role === 'moderator') {
+      session.role = 'reader';
+      downgradeBody.username = session.username;
+      downgradeBody.role = session.role;
+		} else {
+      console.error('This is as low as it goes, sorry...');
+    }
+
+		if (Object.keys(downgradeBody).length > 0) {
+			user = await Users.update(id, downgradeBody);
+			return res.status(201).json({
+				data: user,
+				message: 'Role downgrade...'
+			});
+		} else {
+			return res.status(400).json({
+				message: 'Empty object, nothing to downgrade.'
+			});
+		}
+
+	} catch (error) {
+		next(error + '!!!')
+	}
+}

@@ -42,4 +42,16 @@ router.get('/:id/upload', checkToken.verifyToken, accessController.allowIfLogged
 
 router.patch('/:id/upload/', checkToken.verifyToken, accessController.allowIfLoggedin, usersController.deleteImage);
 
+/*************************/
+/***** UPGRADE USER ******/
+/*************************/
+
+router.put('/upgrade/:id', usersController.upgradeUser);
+
+/**************************/
+/***** DOWNGRADE USER *****/
+/**************************/
+
+router.put('/downgrade/:id', usersController.downgradeUser);
+
 module.exports = router;
