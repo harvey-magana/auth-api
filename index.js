@@ -31,8 +31,6 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * performance: https://expressjs.com/en/advanced/best-practice-performance.html
  * 
  * npm debug
- * api restarts if it stops for any reason (nodemon?) (kind of..., nodemon is for development and pm2 is the same thing for production)
- * process manager: pm2 or npm forever, https://flaviocopes.com/pm2/, 
  * init system: systemd or upstart (look up launchd and launchctl for mac)
  * load balancer (consider nginx or express.js custom method)
  * cache request results 
