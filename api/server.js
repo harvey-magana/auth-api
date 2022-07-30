@@ -26,7 +26,16 @@ const commentsRouter = require('../api/routes/commentsRouter');
 const userPostRouter = require('../api/routes/userPostRoutes');
 const postCommentRouter = require('../api/routes/postCommentRouter');
 
-server.use(compression());
+server.use(compression({
+	level: 6,
+	filter: (req, res) => {
+		if(req.headers['x-no-compression']) {
+			return false;
+		}
+		return compression.filter(req, res);
+	}
+}));
+
 server.use(fileUpload({
 	createParentPath: true,
 	limits: {
@@ -36,6 +45,12 @@ server.use(fileUpload({
 }));
 
 server.use(helmet());
+server.use(helmet.noSniff());
+server.use(helmet.dnsPrefetchControl({
+	allow: false
+}));
+server.use(helmet.hidePoweredBy());
+server.use(helmet.xssFilter());
 server.use(express.json());
 server.use(cors());
 server.use(express.urlencoded({ extended: true }));

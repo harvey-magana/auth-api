@@ -30,16 +30,15 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * 
  * performance: https://expressjs.com/en/advanced/best-practice-performance.html
  * 
- * npm debug
- * init system: systemd or upstart (look up launchd and launchctl for mac)
- * load balancer (consider nginx or express.js custom method)
- * cache request results 
+ * started, not completed: 
+ * 
+ * not started:
+ * npm upstart or launchd 
  * 
  * security: https://expressjs.com/en/advanced/best-practice-security.html
  * audit dependencies 
  * tls (nginx)
- * npm helmet, maximize use and configuration
- * session cookies 
+ * 
  * npm node-rate-limiter-flexible
  * npm snyk 
  * npm csurf (session middleware must be set up before implementing this)
