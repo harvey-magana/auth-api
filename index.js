@@ -39,8 +39,8 @@ server.listen(process.env.PORT, process.env.HOST, () => {
  * audit dependencies 
  * tls (nginx)
  * 
- * npm node-rate-limiter-flexible
- * npm snyk 
+ * npm node-rate-limiter-flexible https://dev.to/mattdclarke/how-to-rate-limit-a-login-route-in-express-using-node-rate-limiter-flexible-and-redis-1i1k
+ * 
  * npm csurf (session middleware must be set up before implementing this)
  * sqlmap (brew install sqlmap)
  * nmap (brew install nmap)
