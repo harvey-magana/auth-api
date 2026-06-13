@@ -39,7 +39,7 @@ server.use(compression({
 server.use(fileUpload({
 	createParentPath: true,
 	limits: {
-		fileSize: 270 * 270
+		fileSize: 5 * 1024 * 1024
 	},
 	abortOnLimit: true
 }));
@@ -58,7 +58,12 @@ server.use(session({
 	secret: process.env.SESSION_SECRET,
 	name: 'appSession',
 	resave: false, 
-	saveUninitialized: false, 
+	saveUninitialized: false,
+	cookie: {
+		httpOnly: true,
+		sameSite: 'strict',
+		secure: process.env.NODE_ENV === 'production'
+	},
 	store: store
 }));
 
