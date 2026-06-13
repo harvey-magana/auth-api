@@ -13,7 +13,6 @@ exports.register = async (req, res, next) => {
 		const username = req.body.username;
 		const email = req.body.email;
 		const password = req.body.password;
-		const confirm_password = req.body.confirm_password;
 		const image_path = req.body.image_path;
 		const role = req.body.role;
 
@@ -32,7 +31,6 @@ exports.register = async (req, res, next) => {
 			username,
 			email, 
 			password: hashpassword,
-			confirm_password,
 			image_path,
 			role: role || 'reader'
 		});
@@ -122,7 +120,7 @@ exports.checkToken = async (req, res, next) => {
 		if (token) {
 			const decoded = await jwt_decode(token);
 
-			if(decoded.exp < Date.now) {
+			if ((decoded.exp * 1000) < Date.now()) {
 				res.status(200).json({
 					token_expiration: decoded.exp, 
 					token_issue: decoded.iat

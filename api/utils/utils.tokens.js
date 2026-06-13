@@ -7,11 +7,13 @@ const privateKey = fs.readFileSync(path.join(__dirname, 'keys', 'rsa.key'), 'utf
 const publicKey = fs.readFileSync(path.join(__dirname, 'keys', 'rsa.key.pub'), 'utf8');
 
 function generateAccessToken(user) {
-	return jwt.sign(user, privateKey, { expiresIn: '5h', algorithm: 'RS256' });
+	const payload = { id: user.id, username: user.username, role: user.role };
+	return jwt.sign(payload, privateKey, { expiresIn: '5h', algorithm: 'RS256' });
 }
 
 function generateRefreshToken(user) {
-	return jwt.sign(user, privateKey, { expiresIn: '1d', algorithm: 'RS256' });
+	const payload = { id: user.id, username: user.username, role: user.role };
+	return jwt.sign(payload, privateKey, { expiresIn: '1d', algorithm: 'RS256' });
 }
 
 const verifyToken = (req, res, next) => {
