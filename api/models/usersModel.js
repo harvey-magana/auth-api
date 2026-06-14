@@ -29,7 +29,6 @@ async function add(userData) {
 		username: userData['username'], 
 		email: userData['email'], 
 		password: userData['password'], 
-		confirm_password: userData['confirm_password'], 
 		role: userData['role'], 
 		image_path: userData['image_path'] }).returning('*');
 	return ids;

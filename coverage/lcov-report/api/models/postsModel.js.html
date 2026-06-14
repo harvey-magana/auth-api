@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.82% </span>
+                <span class="strong">47.61% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/46</span>
+                <span class='fraction'>20/42</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">14.28% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/7</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.82% </span>
+                <span class="strong">47.61% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/46</span>
+                <span class='fraction'>20/42</span>
             </div>
         
             
@@ -57,7 +57,7 @@
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input type="search" id="fileSearch">
             </div>
         </template>
     </div>
@@ -106,10 +106,7 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -138,12 +135,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -152,8 +143,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const db = require('../db/dbConfig');
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const db = require('../db/dbConfig');
 &nbsp;
 module.exports = {
 	find,
@@ -161,8 +157,7 @@ module.exports = {
 	findById,
 	add,
 	update,
-	remove,
-	findPostByUserId
+	remove
 };
 &nbsp;
 function find() {
@@ -179,33 +174,32 @@ function find() {
 <span class="cstat-no" title="statement not covered" >	return posts;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function add(filter) {</span></span>
-<span class="cstat-no" title="statement not covered" >	const [ids] = await db('posts').insert(filter);</span>
-<span class="cstat-no" title="statement not covered" >	return await (findById(ids));</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function add(userData) {</span></span>
+<span class="cstat-no" title="statement not covered" >	const [ids] = await db('posts').insert({</span>
+<span class="cstat-no" title="statement not covered" >		post_title: userData['post_title'], </span>
+<span class="cstat-no" title="statement not covered" >		post_body: userData['post_body'], </span>
+<span class="cstat-no" title="statement not covered" >		user_id: userData['user_id'] }).returning('*');</span>
+<span class="cstat-no" title="statement not covered" >	return ids;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function update(id, changes) {</span></span>
-<span class="cstat-no" title="statement not covered" >	const count = await db('posts').where({ id }).update(changes);</span>
+<span class="cstat-no" title="statement not covered" >	const count = await db('posts').where({ id }).update(changes).returning('*');</span>
 <span class="cstat-no" title="statement not covered" >	return count;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function remove(id) {</span></span>
-<span class="cstat-no" title="statement not covered" >	return await db('posts').where({ id }).del();</span>
+<span class="cstat-no" title="statement not covered" >	const [removePost] = await db('posts').where({ id }).del().returning('*');</span>
+<span class="cstat-no" title="statement not covered" >	return removePost;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async function findPostByUserId(id) {</span></span>
-<span class="cstat-no" title="statement not covered" >	const [ids] = await db('posts').join('users', 'users.id', 'posts.user_id')</span>
-<span class="cstat-no" title="statement not covered" >		.select('users.id', 'posts.post_title', 'posts.post_body').limit(1)</span>
-<span class="cstat-no" title="statement not covered" >		.where('posts.user_id', id.id );</span>
-<span class="cstat-no" title="statement not covered" >	return await (findById(ids));</span>
-<span class="cstat-no" title="statement not covered" >}</span></pre></td></tr></table></pre>
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu May 26 2022 08:52:59 GMT-0700 (Pacific Daylight Time)
+                at 2026-06-14T14:04:10.397Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

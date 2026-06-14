@@ -39,7 +39,7 @@ server.use(compression({
 server.use(fileUpload({
 	createParentPath: true,
 	limits: {
-		fileSize: 270 * 270
+		fileSize: 5 * 1024 * 1024
 	},
 	abortOnLimit: true
 }));
@@ -55,13 +55,17 @@ server.use(express.json());
 server.use(cors());
 server.use(express.urlencoded({ extended: true }));
 server.use(session({
-	secret: process.env.SESSION_SECRET,
-	name: 'appSession',
-	resave: false, 
-	saveUninitialized: false, 
-	store: store
+  secret: process.env.SESSION_SECRET || 'dev-session-secret-change-me',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    sameSite: 'strict',
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 1000 * 60 * 60
+  },
+  store
 }));
-
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/posts', postsRouter);

@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
 
 			if(token == null) return res.status(401).json({ message: 'invalid token' });
 
-			let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+			let decoded = jwt.verify(token, publicKey, { algorithms: ['RS256'] });
 			req.session.verified = decoded;
 			req.user = decoded;
 			next();
