@@ -1,5 +1,3 @@
-module.exports = db;
-
 require('dotenv').config();
 
 const knex = require('knex');
