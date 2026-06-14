@@ -1,14 +1,42 @@
 
 name: Node CI
-on: [push,pull_request]
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    env:
+      NODE_ENV: testing
+      DB_ENV: testing
+      SESSION_SECRET: test-session-secret
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
-      - run: npm test
-      - run: npm audit --audit-level=high
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate test RSA keys
+        run: |
+          mkdir -p api/utils/keys
+          openssl genrsa -out api/utils/keys/rsa.key 2048
+          openssl rsa -in api/utils/keys/rsa.key -pubout -out api/utils/keys/rsa.key.pub
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run npm audit
+        run: npm audit --audit-level=high
