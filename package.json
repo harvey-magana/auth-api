@@ -12,7 +12,7 @@
   "description": "backend for auth project",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing jest --runInBand --coverage",
+    "test": "cross-env NODE_ENV=testing DB_ENV=testing jest --runInBand --coverage",
     "start": "set NODE_ENV=development && nodemon"
   },
   "author": "",
