@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1781384427588" clover="3.2.0">
-  <project timestamp="1781384427588" name="All files">
-    <metrics statements="1369" coveredstatements="519" conditionals="1" coveredconditionals="1" methods="62" coveredmethods="0" elements="1432" coveredelements="520" complexity="0" loc="1369" ncloc="1369" packages="7" files="25" classes="25"/>
+<coverage generated="1781386983869" clover="3.2.0">
+  <project timestamp="1781386983869" name="All files">
+    <metrics statements="1378" coveredstatements="531" conditionals="1" coveredconditionals="1" methods="62" coveredmethods="0" elements="1441" coveredelements="532" complexity="0" loc="1378" ncloc="1378" packages="7" files="25" classes="25"/>
     <package name="api">
       <metrics statements="81" coveredstatements="75" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="server.js" path="/Library/WebServer/Documents/auth-api-master/api/server.js">
@@ -790,7 +790,7 @@
       </file>
     </package>
     <package name="api.db">
-      <metrics statements="58" coveredstatements="51" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="67" coveredstatements="63" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="dbConfig.js" path="/Library/WebServer/Documents/auth-api-master/api/db/dbConfig.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -802,7 +802,7 @@
         <line num="7" count="1" type="stmt"/>
       </file>
       <file name="knexfile.js" path="/Library/WebServer/Documents/auth-api-master/api/db/knexfile.js">
-        <metrics statements="51" coveredstatements="44" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="60" coveredstatements="56" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -823,15 +823,15 @@
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
-        <line num="28" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
@@ -854,6 +854,15 @@
         <line num="49" count="1" type="stmt"/>
         <line num="50" count="1" type="stmt"/>
         <line num="51" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
       </file>
     </package>
     <package name="api.middleware">
