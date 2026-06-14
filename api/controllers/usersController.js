@@ -16,10 +16,10 @@ exports.getOneUser = async (req, res, next) => {
 		const { id } = req.params; // user id 
 		const data = req.user;
 
-		const permission = (data.id === id && roles.can(data.role).readOwn('profile').granted) ? roles.can(data.role).readOwn('profile') : roles.can(data.role).readAny('profile');
+		const permission = (Number(data.id) === Number(id) && roles.can(data.role).readOwn('profile').granted) ? roles.can(data.role).readOwn('profile') : roles.can(data.role).readAny('profile');
 		if(permission.granted) {
 			const [user] = await Users.findById(id);
-			return res.status(200).json({data: user});
+			return res.status(201).json({data: user});
 		}
 
 	} catch (error) {
@@ -35,7 +35,7 @@ exports.updateUser = async (req, res, next) => {
     const userBody = req.body;
 
     const permission =
-      data.id === id && roles.can(data.role).updateOwn('profile').granted
+      Number(data.id) === Number(id) && roles.can(data.role).updateOwn('profile').granted
         ? roles.can(data.role).updateOwn('profile')
         : roles.can(data.role).updateAny('profile');
 
@@ -63,7 +63,7 @@ exports.updateUser = async (req, res, next) => {
       });
     }
 
-    return res.status(200).json({
+    return res.status(201).json({
       data: user,
       message: 'User has been updated'
     });
@@ -78,7 +78,7 @@ exports.deleteUser = async (req, res, next) => {
 		const userId = req.params.id; // user id 
 		const data = req.user;
 
-		const permission = (data.id === userId && roles.can(data.role).deleteOwn('profile').granted) ? roles.can(data.role).deleteOwn('profile') : roles.can(data.role).deleteAny('profile');
+		const permission = (Number(data.id) === userId && roles.can(data.role).deleteOwn('profile').granted) ? roles.can(data.role).deleteOwn('profile') : roles.can(data.role).deleteAny('profile');
 
 		if(permission.granted) {
 			const user = await Users.remove(userId);
@@ -125,7 +125,7 @@ exports.uploadImage = async (req, res, next) => {
 
 		const { id } = req.params; // user id 
 
-		const permission = (data.id === id && roles.can(data.role).updateOwn('avatar').granted) ? roles.can(data.role).updateOwn('avatar') : roles.can(data.role).updateAny('avatar');
+		const permission = (Number(data.id) === Number(id) && roles.can(data.role).updateOwn('avatar').granted) ? roles.can(data.role).updateOwn('avatar') : roles.can(data.role).updateAny('avatar');
 
 		if(permission.granted) {
 			await Users.addImage({ id: id, image_path: uploadPath });
@@ -146,7 +146,7 @@ exports.getUserImage = async (req, res, next) => {
 		const { id } = req.params; // user id 
 		const data = req.user;
 
-		const permission = (data.id === id && roles.can(data.role).readOwn('avatar').granted) ? roles.can(data.role).readOwn('avatar') : roles.can(data.role).readAny('avatar');
+		const permission = (Number(data.id) === Number(id) && roles.can(data.role).readOwn('avatar').granted) ? roles.can(data.role).readOwn('avatar') : roles.can(data.role).readAny('avatar');
 
 		if(permission.granted) {
 			const [user] = await Users.findById(id);
@@ -174,7 +174,7 @@ exports.deleteImage = async (req, res, next) => {
 		const id = req.params.id; // user id 
 		const data = req.user;
 
-		const permission = (data.id === id && roles.can(data.role).deleteOwn('avatar').granted) ? roles.can(data.role).deleteOwn('avatar') : roles.can(data.role).deleteAny('avatar');
+		const permission = (Number(data.id) === Number(id) && roles.can(data.role).deleteOwn('avatar').granted) ? roles.can(data.role).deleteOwn('avatar') : roles.can(data.role).deleteAny('avatar');
 
 		if(permission.granted) {
 			const [user] = await Users.findById(id);
