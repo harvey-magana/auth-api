@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.55% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/36</span>
+                <span class='fraction'>32/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.55% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/36</span>
+                <span class='fraction'>32/36</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -103,27 +103,27 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -137,28 +137,28 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise&lt;void&gt; }
  */
- exports.up = <span class="fstat-no" title="function not covered" >async function(knex) {</span>
-<span class="cstat-no" title="statement not covered" >	await knex.schema.hasTable('users').then(function(exists) {</span>
-<span class="cstat-no" title="statement not covered" >		if(!exists) {</span>
-<span class="cstat-no" title="statement not covered" >			return knex.schema.createTable('users', (table) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >				table.increments('id', 6).primary();</span>
-<span class="cstat-no" title="statement not covered" >				table.string('username', 100).notNullable().unique();</span>
-<span class="cstat-no" title="statement not covered" >				table.string('email', 100).notNullable().unique();</span>
-<span class="cstat-no" title="statement not covered" >				table.string('password', 100).notNullable();</span>
-<span class="cstat-no" title="statement not covered" >								table.string('role', 30);</span>
-<span class="cstat-no" title="statement not covered" >				table.binary('image_path', 255);</span>
-<span class="cstat-no" title="statement not covered" >				table.timestamps(false, true);</span>
-<span class="cstat-no" title="statement not covered" >			});</span>
-<span class="cstat-no" title="statement not covered" >		}</span>
-<span class="cstat-no" title="statement not covered" >	});</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >	await knex.raw(`</span>
-<span class="cstat-no" title="statement not covered" >    CREATE TRIGGER set_timestamp</span>
-<span class="cstat-no" title="statement not covered" >    BEFORE UPDATE </span>
-<span class="cstat-no" title="statement not covered" >    ON users </span>
-<span class="cstat-no" title="statement not covered" >    FOR EACH ROW </span>
-<span class="cstat-no" title="statement not covered" >    EXECUTE PROCEDURE trigger_set_timestamp(); </span>
-<span class="cstat-no" title="statement not covered" >  `);</span>
+ exports.up = async function(knex) {
+	await knex.schema.hasTable('users').then(function(exists) {
+		if(!exists) {
+			return knex.schema.createTable('users', (table) =&gt; {
+				table.increments('id', 6).primary();
+				table.string('username', 100).notNullable().unique();
+				table.string('email', 100).notNullable().unique();
+				table.string('password', 100).notNullable();
+								table.string('role', 30);
+				table.binary('image_path', 255);
+				table.timestamps(false, true);
+			});
+		}
+	});
+&nbsp;
+	await knex.raw(`
+    CREATE TRIGGER set_timestamp
+    BEFORE UPDATE 
+    ON users 
+    FOR EACH ROW 
+    EXECUTE PROCEDURE trigger_set_timestamp(); 
+  `)<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
 <span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
 /**
@@ -175,7 +175,7 @@ exports.down = <span class="fstat-no" title="function not covered" >function(kne
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-14T11:56:08.240Z
+                at 2026-06-14T12:06:34.025Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

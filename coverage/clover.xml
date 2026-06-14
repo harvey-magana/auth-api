@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1781438168273" clover="3.2.0">
-  <project timestamp="1781438168274" name="All files">
-    <metrics statements="1517" coveredstatements="589" conditionals="3" coveredconditionals="2" methods="70" coveredmethods="1" elements="1590" coveredelements="592" complexity="0" loc="1517" ncloc="1517" packages="8" files="29" classes="29"/>
+<coverage generated="1781438794058" clover="3.2.0">
+  <project timestamp="1781438794058" name="All files">
+    <metrics statements="1523" coveredstatements="599" conditionals="9" coveredconditionals="5" methods="70" coveredmethods="2" elements="1602" coveredelements="606" complexity="0" loc="1523" ncloc="1523" packages="8" files="29" classes="29"/>
     <package name="api">
       <metrics statements="80" coveredstatements="74" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="server.js" path="/Library/WebServer/Documents/auth-api-master/api/server.js">
@@ -789,15 +789,15 @@
       </file>
     </package>
     <package name="api.db">
-      <metrics statements="70" coveredstatements="66" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="70" coveredstatements="66" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="dbConfig.js" path="/Library/WebServer/Documents/auth-api-master/api/db/dbConfig.js">
-        <metrics statements="10" coveredstatements="10" conditionals="1" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="6" count="1" type="cond" truecount="0" falsecount="2"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
@@ -868,17 +868,53 @@
       </file>
     </package>
     <package name="api.db.migrations">
-      <metrics statements="137" coveredstatements="56" conditionals="1" coveredconditionals="1" methods="8" coveredmethods="1"/>
+      <metrics statements="143" coveredstatements="66" conditionals="6" coveredconditionals="4" methods="8" coveredmethods="2"/>
       <file name="20220611170725_trigger_updated_at.js" path="/Library/WebServer/Documents/auth-api-master/api/db/migrations/20220611170725_trigger_updated_at.js">
-        <metrics statements="27" coveredstatements="23" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="1"/>
+        <metrics statements="33" coveredstatements="12" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+      </file>
+      <file name="20220611170736_users.js" path="/Library/WebServer/Documents/auth-api-master/api/db/migrations/20220611170736_users.js">
+        <metrics statements="36" coveredstatements="32" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="6" count="1" type="stmt"/>
+        <line num="6" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="8" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
@@ -894,39 +930,9 @@
         <line num="21" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-      </file>
-      <file name="20220611170736_users.js" path="/Library/WebServer/Documents/auth-api-master/api/db/migrations/20220611170736_users.js">
-        <metrics statements="36" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="27" count="0" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
