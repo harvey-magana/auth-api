@@ -80,13 +80,12 @@ DA:73,1
 DA:74,1
 DA:75,1
 DA:76,1
-DA:77,1
-DA:78,0
+DA:77,0
+DA:78,1
 DA:79,1
 DA:80,1
-DA:81,1
-LF:81
-LH:75
+LF:80
+LH:74
 BRF:0
 BRH:0
 end_of_record

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1781436877019" clover="3.2.0">
-  <project timestamp="1781436877019" name="All files">
-    <metrics statements="1378" coveredstatements="531" conditionals="1" coveredconditionals="1" methods="62" coveredmethods="0" elements="1441" coveredelements="532" complexity="0" loc="1378" ncloc="1378" packages="7" files="25" classes="25"/>
+<coverage generated="1781437291021" clover="3.2.0">
+  <project timestamp="1781437291021" name="All files">
+    <metrics statements="1377" coveredstatements="530" conditionals="1" coveredconditionals="1" methods="62" coveredmethods="0" elements="1440" coveredelements="531" complexity="0" loc="1377" ncloc="1377" packages="7" files="25" classes="25"/>
     <package name="api">
-      <metrics statements="81" coveredstatements="75" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="80" coveredstatements="74" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="server.js" path="/Library/WebServer/Documents/auth-api-master/api/server.js">
-        <metrics statements="81" coveredstatements="75" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="80" coveredstatements="74" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -82,11 +82,10 @@
         <line num="74" count="1" type="stmt"/>
         <line num="75" count="1" type="stmt"/>
         <line num="76" count="1" type="stmt"/>
-        <line num="77" count="1" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
         <line num="79" count="1" type="stmt"/>
         <line num="80" count="1" type="stmt"/>
-        <line num="81" count="1" type="stmt"/>
       </file>
     </package>
     <package name="api.controllers">
