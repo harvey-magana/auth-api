@@ -1,5 +1,8 @@
 const Users = require('../models/usersModel');
 const nodePath = require('path');
+// added the following two to improve nodePath
+const fs = require('fs');
+const crypto = require('crypto');
 const { roles } = require('../utils/roles');
 
 exports.getAllUsers = async (req, res, next) => {
@@ -99,44 +102,73 @@ exports.deleteUser = async (req, res, next) => {
 	}
 };
 
+// updated uploadImaage function 
 exports.uploadImage = async (req, res, next) => {
 	try {
 		const data = req.user;
-		let sampleFile;
-		let uploadPath;
+		const { id } = req.params;
 
-		if(!req.files || Object.keys(req.files).length === 0) {
+		if (!req.files || Object.keys(req.files).length === 0 || !req.files.avatar) {
 			return res.status(400).json({
 				message: 'No files were uploaded.'
 			});
 		}
 
-		sampleFile = req.files.avatar;
-		uploadPath = process.cwd() + '/api/uploads/' + sampleFile.name;
-		const extensionName = nodePath.extname(sampleFile.name);
+		const sampleFile = req.files.avatar;
+
+		if (Array.isArray(sampleFile)) {
+			return res.status(400).json({
+				message: 'Only one avatar file may be uploaded.'
+			});
+		}
+
+		const extensionName = nodePath.extname(sampleFile.name).toLowerCase();
 		const allowedExtension = ['.png', '.jpg', '.jpeg'];
 
-		if(!allowedExtension.includes(extensionName)) {
+		if (!allowedExtension.includes(extensionName)) {
 			return res.status(422).json({
 				message: 'Invalid file'
 			});
 		}
 
-		const { id } = req.params; // user id 
+		const permission =
+			Number(data.id) === Number(id) && roles.can(data.role).updateOwn('avatar').granted
+				? roles.can(data.role).updateOwn('avatar')
+				: roles.can(data.role).updateAny('avatar');
 
-		const permission = (Number(data.id) === Number(id) && roles.can(data.role).updateOwn('avatar').granted) ? roles.can(data.role).updateOwn('avatar') : roles.can(data.role).updateAny('avatar');
-
-		if(permission.granted) {
-			await Users.addImage({ id: id, image_path: uploadPath });
-			sampleFile.mv(uploadPath, function(err) {
-				if(err) return res.status(500).send(err);
-	
-				return res.send('File uploaded!');
+		if (!permission.granted) {
+			return res.status(403).json({
+				message: 'Forbidden'
 			});
 		}
 
+		const uploadsDir = nodePath.resolve(process.cwd(), 'api', 'uploads');
+		fs.mkdirSync(uploadsDir, { recursive: true });
+
+		const safeFileName = `${crypto.randomUUID()}${extensionName}`;
+		const uploadPath = nodePath.join(uploadsDir, safeFileName);
+
+		if (!uploadPath.startsWith(uploadsDir + nodePath.sep)) {
+			return res.status(400).json({
+				message: 'Invalid upload path'
+			});
+		}
+
+		await sampleFile.mv(uploadPath);
+
+		const imagePath = nodePath.join('api', 'uploads', safeFileName);
+
+		await Users.addImage({
+			id,
+			image_path: imagePath
+		});
+
+		return res.status(200).json({
+			message: 'File uploaded!',
+			image_path: imagePath
+		});
 	} catch (error) {
-		next(error.message + '!!');
+		return next(error);
 	}
 };
 
