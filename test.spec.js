@@ -9,6 +9,16 @@ const userPayload = {
 	confirm_password: 'password1'
 };
 
+async function getCsrfToken(agent) {
+	const response = await agent.get('/api/csrf-token');
+
+	if (!response.body.csrfToken) {
+		throw new Error(`CSRF token was not returned: ${JSON.stringify(response.body)}`);
+	}
+
+	return response.body.csrfToken;
+}
+
 beforeAll(async () => {
 	await db.migrate.latest();
 	await db.seed.run();
@@ -21,20 +31,28 @@ afterAll(async () => {
 
 describe('auth', () => {
 	it('loads successfully', async () => {
-		const response = await request(server)
+		const agent = request.agent(server);
+		const csrfToken = await getCsrfToken(agent);
+
+		const response = await agent
 			.post('/api/auth/register')
 			.send(userPayload)
 			.set('Accept', 'application/json')
-			.set('Content-Type', 'application/json');
+			.set('Content-Type', 'application/json')
+			.set('X-CSRF-Token', csrfToken);
 
 		expect(response.status).toBe(201);
 	});
 
 	it('successfully logs in', async () => {
-		const response = await request(server)
+		const agent = request.agent(server);
+		const csrfToken = await getCsrfToken(agent);
+
+		const response = await agent
 			.post('/api/auth/login')
 			.set('Accept', 'application/json')
 			.set('Content-Type', 'application/json')
+			.set('X-CSRF-Token', csrfToken)
 			.send({ username: userPayload.username, password: userPayload.password });
 
 		expect(response.status).toBe(201);
@@ -44,13 +62,17 @@ describe('auth', () => {
 
 describe('users', () => {
 	it('retrieve users', async () => {
-		const user = await request(server)
+		const agent = request.agent(server);
+		const csrfToken = await getCsrfToken(agent);
+
+		const user = await agent
 			.post('/api/auth/login')
 			.set('Accept', 'application/json')
 			.set('Content-Type', 'application/json')
+			.set('X-CSRF-Token', csrfToken)
 			.send({ username: userPayload.username, password: userPayload.password });
 
-		const response = await request(server)
+		const response = await agent
 			.get('/api/users')
 			.set('Content-Type', 'application/json')
 			.set('Authorization', `Bearer ${user._body.data.token}`);
@@ -60,16 +82,21 @@ describe('users', () => {
 	});
 
 	it('edit a user', async () => {
-		const user = await request(server)
+		const agent = request.agent(server);
+		const csrfToken = await getCsrfToken(agent);
+
+		const user = await agent
 			.post('/api/auth/login')
 			.set('Accept', 'application/json')
 			.set('Content-Type', 'application/json')
+			.set('X-CSRF-Token', csrfToken)
 			.send({ username: userPayload.username, password: userPayload.password });
 
-		const response = await request(server)
+		const response = await agent
 			.put(`/api/users/${user._body.data.id}`)
 			.set('Content-Type', 'application/json')
 			.set('Authorization', `Bearer ${user._body.data.token}`)
+			.set('X-CSRF-Token', csrfToken)
 			.send({ email: 'herman@yahoo.zz' });
 
 		expect(response.status).toBe(201);
@@ -78,13 +105,17 @@ describe('users', () => {
 
 describe('posts', () => {
 	it('retrieve all posts', async () => {
-		const user = await request(server)
+		const agent = request.agent(server);
+		const csrfToken = await getCsrfToken(agent);
+
+		const user = await agent
 			.post('/api/auth/login')
 			.set('Accept', 'application/json')
 			.set('Content-Type', 'application/json')
+			.set('X-CSRF-Token', csrfToken)
 			.send({ username: userPayload.username, password: userPayload.password });
 
-		const response = await request(server)
+		const response = await agent
 			.get('/api/posts')
 			.set('Content-Type', 'application/json')
 			.set('Accept', 'application/json')
@@ -97,13 +128,17 @@ describe('posts', () => {
 
 describe('comments', () => {
 	it('retrieve all comments', async () => {
-		const user = await request(server)
+		const agent = request.agent(server);
+		const csrfToken = await getCsrfToken(agent);
+
+		const user = await agent
 			.post('/api/auth/login')
 			.set('Accept', 'application/json')
 			.set('Content-Type', 'application/json')
+			.set('X-CSRF-Token', csrfToken)
 			.send({ username: userPayload.username, password: userPayload.password });
 
-		const response = await request(server)
+		const response = await agent
 			.get('/api/comments')
 			.set('Content-Type', 'application/json')
 			.set('Accept', 'application/json')
