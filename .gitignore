@@ -6,3 +6,7 @@ api/utils/keys/rsa.key
 api/utils/keys/rsa.key.pub
 logger
 logger/logs/*
+# Test artifacts
+coverage/
+api/db/testing.db3
+*.db3

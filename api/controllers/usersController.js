@@ -27,38 +27,52 @@ exports.getOneUser = async (req, res, next) => {
 	}
 };
 
+// updated updateUser function start
 exports.updateUser = async (req, res, next) => {
 	try {
-		const { id } = req.params; // user id 
+		const { id } = req.params;
 		const data = req.user;
 		const userBody = req.body;
 
-		const permission = (data.id === id && roles.can(data.role).updateOwn('profile').granted) ? roles.can(data.role).updateOwn('profile') : roles.can(data.role).updateAny('profile');
+		const permission =
+			Number(data.id) === Number(id) && roles.can(data.role).updateOwn('profile').granted
+				? roles.can(data.role).updateOwn('profile')
+				: roles.can(data.role).updateAny('profile');
 
-		if(permission.granted) {
-			if (userBody.username) {
-				res.status(405).json({
-					message: 'You cannot update your username.'
-				});
-			}
-
-			const user = await Users.update(id, userBody);
-
-			if(user) {
-				res.status(201).json({
-					data: user,
-					message: 'User has been updated'
-				});
-			} else {
-				res.status(500).json({
-					message: 'Fail...'
-				});
-			}
+		if (!permission.granted) {
+			return res.status(403).json({
+				message: 'Forbidden'
+			});
 		}
+
+		if (userBody.username) {
+			return res.status(405).json({
+				message: 'You cannot update your username.'
+			});
+		}
+
+		delete userBody.password;
+		delete userBody.role;
+		delete userBody.confirm_password;
+
+		const user = await Users.update(id, userBody);
+
+		if (!user) {
+			return res.status(404).json({
+				message: 'User not found'
+			});
+		}
+
+		return res.status(201).json({
+			data: user,
+			message: 'User has been updated'
+		});
 	} catch (error) {
-		next(error.message);
+		return next(error);
 	}
 };
+// updated updateUser function end 
+
 
 exports.deleteUser = async (req, res, next) => {
 	try {

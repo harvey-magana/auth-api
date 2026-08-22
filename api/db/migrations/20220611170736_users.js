@@ -2,6 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
+
  exports.up = async function(knex) {
 	await knex.schema.hasTable('users').then(function(exists) {
 		if(!exists) {
@@ -16,14 +17,17 @@
 			});
 		}
 	});
-
-	await knex.raw(`
+// updated code start 
+if (knex.client.config.client === 'postgresql') {
+  await knex.raw(`
     CREATE TRIGGER set_timestamp
-    BEFORE UPDATE 
-    ON users 
-    FOR EACH ROW 
-    EXECUTE PROCEDURE trigger_set_timestamp(); 
+    BEFORE UPDATE
+    ON users
+    FOR EACH ROW
+    EXECUTE PROCEDURE trigger_set_timestamp();
   `);
+}
+// updated code end 
 };
 
 /**

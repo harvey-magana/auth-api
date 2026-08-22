@@ -11,7 +11,6 @@
       username: 'testuser3', 
       email: 'test@test3.com', 
       password: 'password1', 
-      confirm_password: 'password1',
       role: 'reader',
       image_path: '/resources/static/assets/uploads/9cebe2fa3429036f272f21f3146762df',
       created_at: '2021-09-01', 
