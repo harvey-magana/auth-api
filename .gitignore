@@ -5,4 +5,16 @@ npm-debug.log
 api/utils/keys/rsa.key
 api/utils/keys/rsa.key.pub
 logger
-logger/logs/*api/utils/keys/rsa.key
+logger/logs/*
+# Test artifacts
+coverage/
+api/db/testing.db3
+*.db3
+
+
+
+
+# Test artifacts
+coverage/
+api/db/testing.db3
+*.db3

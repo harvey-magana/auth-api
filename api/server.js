@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const fileUpload = require('express-fileupload');
 const KnexSessionStore = require('connect-session-knex')(session);
 const compression = require('compression');
+const lusca = require('lusca');
 
 const store = new KnexSessionStore({
 	knex: require('../api/db/dbConfig'),
@@ -55,17 +56,26 @@ server.use(express.json());
 server.use(cors());
 server.use(express.urlencoded({ extended: true }));
 server.use(session({
-  secret: process.env.SESSION_SECRET || 'dev-session-secret-change-me',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    sameSite: 'strict',
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 1000 * 60 * 60
-  },
-  store
+	secret: process.env.SESSION_SECRET,
+	name: 'appSession',
+	resave: false, 
+	saveUninitialized: false,
+	cookie: {
+		httpOnly: true,
+		sameSite: 'strict',
+		secure: process.env.NODE_ENV === 'production'
+	},
+	store: store
 }));
+
+server.get('/api/csrf-token', lusca.csrf(), (req, res) => {
+  return res.status(200).json({
+    csrfToken: res.locals._csrf
+  });
+});
+
+server.use(lusca.csrf());
+
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/posts', postsRouter);
