@@ -16,10 +16,10 @@ exports.getOneUser = async (req, res, next) => {
 		const { id } = req.params; // user id 
 		const data = req.user;
 
-		const permission = (Number(data.id) === Number(id) && roles.can(data.role).readOwn('profile').granted) ? roles.can(data.role).readOwn('profile') : roles.can(data.role).readAny('profile');
+		const permission = (data.id === id && roles.can(data.role).readOwn('profile').granted) ? roles.can(data.role).readOwn('profile') : roles.can(data.role).readAny('profile');
 		if(permission.granted) {
 			const [user] = await Users.findById(id);
-			return res.status(201).json({data: user});
+			return res.status(200).json({data: user});
 		}
 
 	} catch (error) {
@@ -27,7 +27,7 @@ exports.getOneUser = async (req, res, next) => {
 	}
 };
 
-// updated code start 
+// updated updateUser function start
 exports.updateUser = async (req, res, next) => {
 	try {
 		const { id } = req.params;
@@ -71,13 +71,15 @@ exports.updateUser = async (req, res, next) => {
 		return next(error);
 	}
 };
+// updated updateUser function end 
+
 
 exports.deleteUser = async (req, res, next) => {
 	try {
 		const userId = req.params.id; // user id 
 		const data = req.user;
 
-		const permission = (Number(data.id) === userId && roles.can(data.role).deleteOwn('profile').granted) ? roles.can(data.role).deleteOwn('profile') : roles.can(data.role).deleteAny('profile');
+		const permission = (data.id === userId && roles.can(data.role).deleteOwn('profile').granted) ? roles.can(data.role).deleteOwn('profile') : roles.can(data.role).deleteAny('profile');
 
 		if(permission.granted) {
 			const user = await Users.remove(userId);
@@ -112,8 +114,11 @@ exports.uploadImage = async (req, res, next) => {
 		}
 
 		sampleFile = req.files.avatar;
-		uploadPath = process.cwd() + '/api/uploads/' + sampleFile.name;
-		const extensionName = nodePath.extname(sampleFile.name);
+		const uploadDir = nodePath.resolve(process.cwd(), 'api/uploads');
+		const originalName = nodePath.basename(sampleFile.name);
+		const safeFileName = originalName.replace(/[^a-zA-Z0-9._-]/g, '_');
+		uploadPath = nodePath.resolve(nodePath.join(uploadDir, safeFileName));
+		const extensionName = nodePath.extname(safeFileName).toLowerCase();
 		const allowedExtension = ['.png', '.jpg', '.jpeg'];
 
 		if(!allowedExtension.includes(extensionName)) {
@@ -122,9 +127,15 @@ exports.uploadImage = async (req, res, next) => {
 			});
 		}
 
+		if(uploadPath !== uploadDir && !uploadPath.startsWith(uploadDir + nodePath.sep)) {
+			return res.status(422).json({
+				message: 'Invalid file path'
+			});
+		}
+
 		const { id } = req.params; // user id 
 
-		const permission = (Number(data.id) === Number(id) && roles.can(data.role).updateOwn('avatar').granted) ? roles.can(data.role).updateOwn('avatar') : roles.can(data.role).updateAny('avatar');
+		const permission = (data.id === id && roles.can(data.role).updateOwn('avatar').granted) ? roles.can(data.role).updateOwn('avatar') : roles.can(data.role).updateAny('avatar');
 
 		if(permission.granted) {
 			await Users.addImage({ id: id, image_path: uploadPath });
@@ -145,7 +156,7 @@ exports.getUserImage = async (req, res, next) => {
 		const { id } = req.params; // user id 
 		const data = req.user;
 
-		const permission = (Number(data.id) === Number(id) && roles.can(data.role).readOwn('avatar').granted) ? roles.can(data.role).readOwn('avatar') : roles.can(data.role).readAny('avatar');
+		const permission = (data.id === id && roles.can(data.role).readOwn('avatar').granted) ? roles.can(data.role).readOwn('avatar') : roles.can(data.role).readAny('avatar');
 
 		if(permission.granted) {
 			const [user] = await Users.findById(id);
@@ -173,7 +184,7 @@ exports.deleteImage = async (req, res, next) => {
 		const id = req.params.id; // user id 
 		const data = req.user;
 
-		const permission = (Number(data.id) === Number(id) && roles.can(data.role).deleteOwn('avatar').granted) ? roles.can(data.role).deleteOwn('avatar') : roles.can(data.role).deleteAny('avatar');
+		const permission = (data.id === id && roles.can(data.role).deleteOwn('avatar').granted) ? roles.can(data.role).deleteOwn('avatar') : roles.can(data.role).deleteAny('avatar');
 
 		if(permission.granted) {
 			const [user] = await Users.findById(id);
