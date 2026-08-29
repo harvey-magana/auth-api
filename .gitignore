@@ -12,9 +12,3 @@ api/db/testing.db3
 *.db3
 
 
-
-
-# Test artifacts
-coverage/
-api/db/testing.db3
-*.db3
