@@ -114,13 +114,22 @@ exports.uploadImage = async (req, res, next) => {
 		}
 
 		sampleFile = req.files.avatar;
-		uploadPath = process.cwd() + '/api/uploads/' + sampleFile.name;
-		const extensionName = nodePath.extname(sampleFile.name);
+		const uploadDir = nodePath.resolve(process.cwd(), 'api/uploads');
+		const originalName = nodePath.basename(sampleFile.name);
+		const safeFileName = originalName.replace(/[^a-zA-Z0-9._-]/g, '_');
+		uploadPath = nodePath.resolve(nodePath.join(uploadDir, safeFileName));
+		const extensionName = nodePath.extname(safeFileName).toLowerCase();
 		const allowedExtension = ['.png', '.jpg', '.jpeg'];
 
 		if(!allowedExtension.includes(extensionName)) {
 			return res.status(422).json({
 				message: 'Invalid file'
+			});
+		}
+
+		if(uploadPath !== uploadDir && !uploadPath.startsWith(uploadDir + nodePath.sep)) {
+			return res.status(422).json({
+				message: 'Invalid file path'
 			});
 		}
 
