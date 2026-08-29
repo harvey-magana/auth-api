@@ -9,6 +9,7 @@ const fileUpload = require('express-fileupload');
 const KnexSessionStore = require('connect-session-knex')(session);
 const compression = require('compression');
 const lusca = require('lusca');
+const rateLimit = require('express-rate-limit');
 
 const store = new KnexSessionStore({
 	knex: require('../api/db/dbConfig'),
@@ -19,6 +20,23 @@ const store = new KnexSessionStore({
 });
 
 const server = express();
+
+const apiLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	max: 300,
+	standardHeaders: true,
+	legacyHeaders: false
+});
+
+const authLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	max: 20,
+	standardHeaders: true,
+	legacyHeaders: false,
+	message: {
+		message: 'Too many authentication attempts. Please try again later.'
+	}
+});
 
 const authRouter = require('../api/routes/authRouter');
 const usersRouter = require('../api/routes/usersRouter');
@@ -76,12 +94,12 @@ server.get('/api/csrf-token', lusca.csrf(), (req, res) => {
 
 server.use(lusca.csrf());
 
-server.use('/api/auth', authRouter);
-server.use('/api/users', usersRouter);
-server.use('/api/posts', postsRouter);
-server.use('/api/comments', commentsRouter);
-server.use('/api/user_post', userPostRouter);
-server.use('/api/post_comment', postCommentRouter);
+server.use('/api/auth', authLimiter, authRouter);
+server.use('/api/users', apiLimiter, usersRouter);
+server.use('/api/posts', apiLimiter, postsRouter);
+server.use('/api/comments', apiLimiter, commentsRouter);
+server.use('/api/user_post', apiLimiter, userPostRouter);
+server.use('/api/post_comment', apiLimiter, postCommentRouter);
 
 server.get('/', (req, res) => {
 	res.json({ message: 'The API is up and running... '});
