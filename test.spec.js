@@ -58,6 +58,42 @@ describe('auth', () => {
 		expect(response.status).toBe(201);
 		expect(response._body.data).toHaveProperty('token');
 	});
+
+	// recommended improvement: add a test for logout functionality
+	it('prevents role escalation during registration', async () => {
+		const agent = request.agent(server);
+		const csrfToken = await getCsrfToken(agent);
+
+		const response = await agent
+			.post('/api/auth/register')
+			.set('Accept', 'application/json')
+			.set('X-CSRF-Token', csrfToken)
+			.send({
+			username: 'role_attack_probe',
+			email: 'role_attack_probe@example.com',
+			password: 'password123',
+			confirm_password: 'password123',
+			role: 'editor',
+			image_path: '/tmp/untrusted-avatar.jpg'
+			});
+
+		expect(response.status).toBe(201);
+		expect(response.body.role).toBe('reader');
+
+		// Sensitive fields must never appear in the response.
+		expect(response.body).not.toHaveProperty('password');
+		expect(response.body).not.toHaveProperty('image_path');
+
+		// Confirm the database stores the correct role.
+		const savedUser = await db('users')
+			.where({ username: 'role_attack_probe' })
+			.first();
+
+		expect(savedUser).toBeDefined();
+		expect(savedUser.role).toBe('reader');
+		expect(savedUser.image_path).toBeNull();
+	});
+
 });
 
 describe('users', () => {
