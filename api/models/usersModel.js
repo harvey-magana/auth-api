@@ -6,6 +6,7 @@ module.exports = {
 	findOne,
 	add,
 	update,
+	updateRole,
 	remove,
 	addImage,
 	findUserImage,
@@ -43,6 +44,21 @@ async function add(userData) {
 async function update(id, changes) {
 	const [updateUser] = await db('users').where({ id }).update(changes).returning(publicUserColumns);
 	return updateUser;
+}
+
+// new updateRole start
+async function updateRole(id, expectedRole, newRole) {
+  const [updatedUser] = await db('users')
+    .where({
+      id,
+      role: expectedRole
+    })
+    .update({
+      role: newRole
+    })
+    .returning(publicUserColumns);
+
+  return updatedUser;
 }
 
 async function remove(id) {
