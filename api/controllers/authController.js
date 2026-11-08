@@ -44,41 +44,6 @@ exports.register = async (req, res, next) => {
 
 // new register function end
 
-// old register function start 
-exports.register = async (req, res, next) => {
-	try {
-
-		const username = req.body.username;
-		const email = req.body.email;
-		const password = req.body.password;
-		const image_path = req.body.image_path;
-		const role = req.body.role;
-
-		const user = await Users.findOne({ username: username }).first();
-  
-		if(user) {
-			return res.status(400).json({
-				message: 'Username taken...'
-			});
-		}
-  
-		const salt = await bcryptjs.genSalt(10);
-		const hashpassword = await bcryptjs.hash(password, salt);
-
-		const newUser = await Users.add({
-			username,
-			email, 
-			password: hashpassword,
-			image_path,
-			role: role || 'reader'
-		});
-
-		res.status(201).json(newUser);
-	} catch (error) {
-		next(error.message);
-	}
-};
-// old register function end
 
 exports.login = async (req, res, next) => {
 	try {
