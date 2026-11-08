@@ -23,4 +23,7 @@ exports.roles = (function() {
 		.updateAny('profile').deleteAny('profile')
 		.updateAny('avatar').deleteAny('avatar');
 	return ac;
+
+	ac.grant('admin')
+  		.extend('editor');
 })();
