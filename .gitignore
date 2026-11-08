@@ -12,3 +12,5 @@ api/db/testing.db3
 *.db3
 
 
+# Local test output reports
+test_result*.txt
