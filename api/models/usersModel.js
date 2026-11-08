@@ -25,14 +25,6 @@ async function findById(id) {
     .select(...publicUserColumns, 'image_path')
     .where({ id });
 }
-// new findById end 
-
-
-// old findById start 
-async function findById(id) {
-	return await db('users').where({ id });
-}
-// old findById end
 
 function findOne(filter) {
 	return db('users').select('id', 'username', 'password', 'role').where(filter);
@@ -44,22 +36,22 @@ async function add(userData) {
 		email: userData['email'], 
 		password: userData['password'], 
 		role: userData['role'], 
-		image_path: userData['image_path'] }).returning('*');
+		image_path: userData['image_path'] }).returning(publicUserColumns);
 	return ids;
 }
 
 async function update(id, changes) {
-	const [updateUser] = await db('users').where({ id }).update(changes).returning('*');
+	const [updateUser] = await db('users').where({ id }).update(changes).returning(publicUserColumns);
 	return updateUser;
 }
 
 async function remove(id) {
-	const [deleteUser] = await db('users').where({ id }).del().returning('*');
+	const [deleteUser] = await db('users').where({ id }).del().returning(publicUserColumns);
 	return deleteUser;
 }
 
 async function addImage(changes) {
-	const [userImg] = await db('users').where({id: changes.id}).update({image_path: changes.image_path}).returning('*');
+	const [userImg] = await db('users').where({id: changes.id}).update({image_path: changes.image_path}).returning(publicUserColumns);
 	return userImg;
 }
 
@@ -70,6 +62,6 @@ async function findUserImage(id) {
 }
 
 async function removeImage(id) {
-	const [removeImg] = await db('users').where(id).update({ image_path: null }).returning('*');
+	const [removeImg] = await db('users').where(id).update({ image_path: null }).returning(publicUserColumns);
 	return removeImg;
 }

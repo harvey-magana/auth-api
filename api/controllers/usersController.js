@@ -11,6 +11,48 @@ exports.getAllUsers = async (req, res, next) => {
 	}
 };
 
+// new getOneUser function start
+exports.getOneUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = req.user;
+
+    const isOwner = Number(data.id) === Number(id);
+
+    const permission =
+      isOwner && roles.can(data.role).readOwn('profile').granted
+        ? roles.can(data.role).readOwn('profile')
+        : roles.can(data.role).readAny('profile');
+
+    if (!permission.granted) {
+      return res.status(403).json({
+        message: 'Forbidden'
+      });
+    }
+
+    const [user] = await Users.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: 'User not found'
+      });
+    }
+
+    return res.status(200).json({
+      data: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+// new getOneUser function end 
+
+// old getOneUser function start
 exports.getOneUser = async (req, res, next) => {
 	try {
 		const { id } = req.params; // user id 
@@ -26,6 +68,7 @@ exports.getOneUser = async (req, res, next) => {
 		next(error.message);
 	}
 };
+// old getOneUser function end
 
 // updated updateUser function start
 exports.updateUser = async (req, res, next) => {
