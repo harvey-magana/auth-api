@@ -115,6 +115,11 @@ describe('users', () => {
 
 		expect(response.status).toBe(200);
 		expect(response._body.data[0]).toHaveProperty('id');
+
+		for (const user of response.body.data) {
+			expect(user).not.toHaveProperty('password');
+			expect(user).not.toHaveProperty('image_path');
+		}
 	});
 
 	it('edit a user', async () => {
@@ -136,7 +141,46 @@ describe('users', () => {
 			.send({ email: 'herman@yahoo.zz' });
 
 		expect(response.status).toBe(201);
+		// recommended improvements 
+		expect(response.body.data).not.toHaveProperty('password');
+		expect(response.body.data).not.toHaveProperty('image_path');
 	});
+
+	// recommended improvement: jwt and 403 
+	it('does not expose sensitive fields in a user profile', async () => {
+		const agent = request.agent(server);
+		const csrfToken = await getCsrfToken(agent);
+
+		const loginResponse = await agent
+			.post('/api/auth/login')
+			.set('X-CSRF-Token', csrfToken)
+			.send({
+			username: userPayload.username,
+			password: userPayload.password
+			});
+
+		expect(loginResponse.status).toBe(201);
+
+		const { id, token } = loginResponse.body.data;
+
+		const response = await agent
+			.get(`/api/users/${id}`)
+			.set('Authorization', `Bearer ${token}`);
+
+		expect(response.status).toBe(200);
+
+		expect(response.body.data).toEqual(
+			expect.objectContaining({
+			id,
+			username: userPayload.username,
+			role: 'reader'
+			})
+		);
+
+		expect(response.body.data).not.toHaveProperty('password');
+		expect(response.body.data).not.toHaveProperty('image_path');
+	});
+
 });
 
 describe('posts', () => {
