@@ -16,9 +16,23 @@ async function find() {
 	return await db('users').select('id', 'username', 'email', 'role').orderBy('id');
 }
 
+// recommended to use this function to avoid exposing sensitive data like password and image_path
+const publicUserColumns = ['id', 'username', 'email', 'role'];
+
+// new findById start
+async function findById(id) {
+  return await db('users')
+    .select(...publicUserColumns, 'image_path')
+    .where({ id });
+}
+// new findById end 
+
+
+// old findById start 
 async function findById(id) {
 	return await db('users').where({ id });
 }
+// old findById end
 
 function findOne(filter) {
 	return db('users').select('id', 'username', 'password', 'role').where(filter);
