@@ -95,8 +95,6 @@ exports.updateUser = async (req, res, next) => {
 		return next(error);
 	}
 };
-// updated updateUser function end 
-
 
 exports.deleteUser = async (req, res, next) => {
 	try {
@@ -231,6 +229,114 @@ exports.deleteImage = async (req, res, next) => {
 		next(error.message);
 	}
 };
+
+// recommended improvement start 
+
+const ROLE_TRANSITIONS = Object.freeze({
+  upgrade: Object.freeze({
+    reader: 'moderator',
+    moderator: 'editor'
+  }),
+  downgrade: Object.freeze({
+    editor: 'moderator',
+    moderator: 'reader'
+  })
+});
+
+async function changeUserRole(req, res, next, direction) {
+  try {
+    const rawTargetId = req.params.id;
+    const targetId = Number(rawTargetId);
+    const actorId = Number(req.user?.id);
+
+    if (
+      !/^[1-9]\d*$/.test(rawTargetId) ||
+      !Number.isSafeInteger(targetId)
+    ) {
+      return res.status(400).json({
+        message: 'Invalid user ID'
+      });
+    }
+
+    if (!Number.isSafeInteger(actorId) || actorId < 1) {
+      return res.status(401).json({
+        message: 'Invalid authenticated user'
+      });
+    }
+
+    // Recheck the caller against current database state.
+    const [actor] = await Users.findById(actorId);
+
+    if (!actor) {
+      return res.status(401).json({
+        message: 'Authenticated user no longer exists'
+      });
+    }
+
+    if (actor.role !== 'admin') {
+      return res.status(403).json({
+        message: 'Administrator privileges required'
+      });
+    }
+
+    // Administrators cannot alter their own role.
+    if (actorId === targetId) {
+      return res.status(403).json({
+        message: 'Cannot change your own role'
+      });
+    }
+
+    const [target] = await Users.findById(targetId);
+
+    if (!target) {
+      return res.status(404).json({
+        message: 'Target user not found'
+      });
+    }
+
+    // Administrators cannot modify other administrators.
+    if (target.role === 'admin') {
+      return res.status(403).json({
+        message: 'Administrator roles cannot be changed here'
+      });
+    }
+
+    // Client-supplied role values are never trusted.
+    const nextRole = ROLE_TRANSITIONS[direction][target.role];
+
+    if (!nextRole) {
+      return res.status(409).json({
+        message: 'No valid role transition is available'
+      });
+    }
+
+    const updatedUser = await Users.updateRole(
+      targetId,
+      target.role,
+      nextRole
+    );
+
+    if (!updatedUser) {
+      return res.status(409).json({
+        message: 'Role changed during the request. Retry.'
+      });
+    }
+
+    return res.status(200).json({
+      message: 'User role updated successfully',
+      data: updatedUser
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+exports.upgradeUser = (req, res, next) =>
+  changeUserRole(req, res, next, 'upgrade');
+
+exports.downgradeUser = (req, res, next) =>
+  changeUserRole(req, res, next, 'downgrade');
+// recommended improvement end
 
 exports.upgradeUser = async (req, res, next) => {
 	try {
