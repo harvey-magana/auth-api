@@ -7,6 +7,44 @@ const { generateAccessToken, generateRefreshToken } = require('../utils/utils.to
 
 const tokenList = {};
 
+// new register function start
+
+exports.register = async (req, res, next) => {
+  try {
+    const { username, email, password } = req.body;
+
+    const existingUser = await Users.findOne({ username }).first();
+
+    if (existingUser) {
+      return res.status(400).json({
+        message: 'Username taken...'
+      });
+    }
+
+    const salt = await bcryptjs.genSalt(10);
+    const hashpassword = await bcryptjs.hash(password, salt);
+
+    const newUser = await Users.add({
+      username,
+      email,
+      password: hashpassword,
+      role: 'reader'
+    });
+
+    return res.status(201).json({
+      id: newUser.id,
+      username: newUser.username,
+      email: newUser.email,
+      role: newUser.role
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+// new register function end
+
+// old register function start 
 exports.register = async (req, res, next) => {
 	try {
 
@@ -40,6 +78,7 @@ exports.register = async (req, res, next) => {
 		next(error.message);
 	}
 };
+// old register function end
 
 exports.login = async (req, res, next) => {
 	try {
