@@ -331,5 +331,11 @@ async function changeUserRole(req, res, next, direction) {
   }
 }
 
+exports.upgradeUser = (req, res, next) => {
+  return changeUserRole(req, res, next, 'upgrade');
+};
 
+exports.downgradeUser = (req, res, next) => {
+  return changeUserRole(req, res, next, 'downgrade');
+};
 

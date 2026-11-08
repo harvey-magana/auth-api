@@ -1,6 +1,7 @@
 const server = require('./api/server');
 const request = require('supertest');
 const db = require('./api/db/dbConfig');
+const bcryptjs = require('bcryptjs');
 
 const userPayload = {
 	username: 'herman',
@@ -227,4 +228,143 @@ describe('comments', () => {
 		expect(response.status).toBe(200);
 		expect(response._body[0]).toHaveProperty('body');
 	});
+});
+
+// recommended improvement 
+
+describe('role administration', () => {
+  it('enforces administrator-only role transitions', async () => {
+    const password = 'password123';
+    const hash = await bcryptjs.hash(password, 10);
+
+    // Test-only privileged accounts. Public registration
+    // must never be used to create administrators.
+    await db('users').insert([
+      {
+        username: 'phase1_admin',
+        email: 'phase1_admin@example.com',
+        password: hash,
+        role: 'admin'
+      },
+      {
+        username: 'phase1_target',
+        email: 'phase1_target@example.com',
+        password: hash,
+        role: 'reader'
+      }
+    ]);
+
+    const admin = await db('users')
+      .where({ username: 'phase1_admin' })
+      .first();
+
+    const target = await db('users')
+      .where({ username: 'phase1_target' })
+      .first();
+
+    const adminAgent = request.agent(server);
+    const targetAgent = request.agent(server);
+
+    const adminCsrf = await getCsrfToken(adminAgent);
+    const targetCsrf = await getCsrfToken(targetAgent);
+
+    const adminLogin = await adminAgent
+      .post('/api/auth/login')
+      .set('X-CSRF-Token', adminCsrf)
+      .send({ username: admin.username, password });
+
+    const targetLogin = await targetAgent
+      .post('/api/auth/login')
+      .set('X-CSRF-Token', targetCsrf)
+      .send({ username: target.username, password });
+
+    expect(adminLogin.status).toBe(201);
+    expect(targetLogin.status).toBe(201);
+
+    const adminToken = adminLogin.body.data.token;
+    const targetToken = targetLogin.body.data.token;
+
+    const roleRequest = (agent, token, csrf, action, id) =>
+      agent
+        .put(`/api/users/${action}/${id}`)
+        .set('Authorization', `Bearer ${token}`)
+        .set('X-CSRF-Token', csrf);
+
+    // Reader cannot promote themselves.
+    const readerAttempt = await roleRequest(
+      targetAgent, targetToken, targetCsrf,
+      'upgrade', target.id
+    );
+    expect(readerAttempt.status).toBe(403);
+
+    // Admin cannot modify their own role.
+    const selfAttempt = await roleRequest(
+      adminAgent, adminToken, adminCsrf,
+      'downgrade', admin.id
+    );
+    expect(selfAttempt.status).toBe(403);
+
+    // Invalid and nonexistent user IDs are rejected.
+    const invalidId = await roleRequest(
+      adminAgent, adminToken, adminCsrf,
+      'upgrade', 'invalid'
+    );
+    expect(invalidId.status).toBe(400);
+
+    const missingUser = await roleRequest(
+      adminAgent, adminToken, adminCsrf,
+      'upgrade', 99999999
+    );
+    expect(missingUser.status).toBe(404);
+
+    // Request body cannot dictate the assigned role.
+    const firstPromotion = await roleRequest(
+      adminAgent, adminToken, adminCsrf,
+      'upgrade', target.id
+    ).send({ role: 'admin' });
+
+    expect(firstPromotion.status).toBe(200);
+    expect(firstPromotion.body.data.role).toBe('moderator');
+    expect(firstPromotion.body.data).not.toHaveProperty('password');
+
+    const secondPromotion = await roleRequest(
+      adminAgent, adminToken, adminCsrf,
+      'upgrade', target.id
+    );
+    expect(secondPromotion.status).toBe(200);
+    expect(secondPromotion.body.data.role).toBe('editor');
+
+    const maximumRole = await roleRequest(
+      adminAgent, adminToken, adminCsrf,
+      'upgrade', target.id
+    );
+    expect(maximumRole.status).toBe(409);
+
+    // Downgrades work only through approved transitions.
+    const firstDowngrade = await roleRequest(
+      adminAgent, adminToken, adminCsrf,
+      'downgrade', target.id
+    );
+    expect(firstDowngrade.status).toBe(200);
+    expect(firstDowngrade.body.data.role).toBe('moderator');
+
+    const secondDowngrade = await roleRequest(
+      adminAgent, adminToken, adminCsrf,
+      'downgrade', target.id
+    );
+    expect(secondDowngrade.status).toBe(200);
+    expect(secondDowngrade.body.data.role).toBe('reader');
+
+    // An old JWT must not preserve administrator privileges.
+    await db('users')
+      .where({ id: admin.id })
+      .update({ role: 'reader' });
+
+    const staleAdminToken = await roleRequest(
+      adminAgent, adminToken, adminCsrf,
+      'upgrade', target.id
+    );
+
+    expect(staleAdminToken.status).toBe(403);
+  });
 });
