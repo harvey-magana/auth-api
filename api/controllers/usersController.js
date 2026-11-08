@@ -50,25 +50,6 @@ exports.getOneUser = async (req, res, next) => {
     return next(error);
   }
 };
-// new getOneUser function end 
-
-// old getOneUser function start
-exports.getOneUser = async (req, res, next) => {
-	try {
-		const { id } = req.params; // user id 
-		const data = req.user;
-
-		const permission = (data.id === id && roles.can(data.role).readOwn('profile').granted) ? roles.can(data.role).readOwn('profile') : roles.can(data.role).readAny('profile');
-		if(permission.granted) {
-			const [user] = await Users.findById(id);
-			return res.status(200).json({data: user});
-		}
-
-	} catch (error) {
-		next(error.message);
-	}
-};
-// old getOneUser function end
 
 // updated updateUser function start
 exports.updateUser = async (req, res, next) => {
